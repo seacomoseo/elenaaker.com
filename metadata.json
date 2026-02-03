@@ -1,0 +1,7 @@
+{
+  "name": "Elena Aker - Arpista Profesional",
+  "description": "Professional website for harpist Elena Aker, focused on bookings, discography, and professional biography.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
