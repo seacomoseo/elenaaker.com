@@ -1,40 +1,26 @@
 
 import { Album } from './types';
 
-import albumIsis from './src/discos/aker-isis-en-crisis.jpg';
-import albumDunas from './src/discos/el-guardian-de-los-secretos-el-secreto-de-las-dunas.jpg';
-import albumMisterios from './src/discos/elena-aker-misterios-menores.jpg';
-import bookingImg from './src/contratacion.jpg';
-import photo1 from './src/fotos/1.jpg';
-import photo2 from './src/fotos/2.jpg';
-import photo3 from './src/fotos/3.jpg';
-import photo4 from './src/fotos/4.jpg';
-import photo5 from './src/fotos/5.jpg';
-import photo6 from './src/fotos/6.jpg';
-import audioTrack from './src/harp-dream-solo-arpa.mp3';
-import videoBg from './src/video-background.mp4';
-import videoPoster from './src/video-background.jpg';
-
 export const ASSETS = {
   photos: [
-    { url: photo1, alt: 'Elena Aker - Retrato Principal', importance: 1 },
-    { url: photo2, alt: 'Elena Aker - Actuación', importance: 2 },
-    { url: photo3, alt: 'Elena Aker - Sesión', importance: 3 },
-    { url: photo4, alt: 'Elena Aker - Detalle Arpa', importance: 4 },
-    { url: photo5, alt: 'Elena Aker - Concierto', importance: 5 },
-    { url: photo6, alt: 'Elena Aker - Promocional', importance: 6 },
+    { url: '/fotos/1.jpg', alt: 'Elena Aker - Retrato Principal', importance: 1 },
+    { url: '/fotos/2.jpg', alt: 'Elena Aker - Actuación', importance: 2 },
+    { url: '/fotos/3.jpg', alt: 'Elena Aker - Sesión', importance: 3 },
+    { url: '/fotos/4.jpg', alt: 'Elena Aker - Detalle Arpa', importance: 4 },
+    { url: '/fotos/5.jpg', alt: 'Elena Aker - Concierto', importance: 5 },
+    { url: '/fotos/6.jpg', alt: 'Elena Aker - Promocional', importance: 6 },
   ],
-  videoBg,
-  videoPoster,
-  audio: audioTrack,
-  bookingImg,
+  videoBg: '/video-background.mp4',
+  videoPoster: '/video-background.jpg',
+  audio: '/harp-dream-solo-arpa.mp3',
+  bookingImg: '/contratacion.jpg',
 };
 
 export const ALBUMS: Album[] = [
   {
     title: 'Misterios Menores',
     artist: 'Elena Aker',
-    image: albumMisterios,
+    image: '/discos/elena-aker-misterios-menores.jpg',
     links: {
       amazon: 'https://music.amazon.es/artists/B0CT6RCRCJ/elena-aker',
       apple: 'https://music.apple.com/es/artist/elena-aker/1727419440',
@@ -47,7 +33,7 @@ export const ALBUMS: Album[] = [
   {
     title: 'El Secreto de las Dunas',
     artist: 'El Guardián de los Secretos',
-    image: albumDunas,
+    image: '/discos/el-guardian-de-los-secretos-el-secreto-de-las-dunas.jpg',
     links: {
       amazon: 'https://music.amazon.es/artists/B0CX7F4FPT/el-guardi%C3%A1n-de-los-secretos?marketplaceId=A1RKKUPIHCS9HS&musicTerritory=ES&ref=dm_sh_4gqDtskmoYQjhFXyli0qk8P3D',
       apple: 'https://music.apple.com/es/artist/el-guardi%C3%A1n-de-los-secretos/1745814013',
@@ -60,7 +46,7 @@ export const ALBUMS: Album[] = [
   {
     title: 'Isis en crisis',
     artist: 'AKER',
-    image: albumIsis,
+    image: '/discos/aker-isis-en-crisis.jpg',
     links: {
       amazon: 'https://music.amazon.es/artists/B008TAUZZ8/aker',
       apple: 'https://music.apple.com/es/artist/aker/1744640528',
