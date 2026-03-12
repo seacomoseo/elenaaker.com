@@ -604,7 +604,7 @@ const Discography = ({ lang }: { lang: Language }) => {
   return (
     <>
       {/* Contenedor divisor para el vídeo, ya no es background de los álbumes */}
-      <div className="w-full bg-[#0a0a0a] flex items-center justify-center">
+      <div className="w-full relative flex items-center justify-center bg-black">
         <video
           ref={videoRef}
           src={ASSETS.videoBg}
@@ -614,6 +614,9 @@ const Discography = ({ lang }: { lang: Language }) => {
           preload="none"
           className="w-full h-auto object-cover"
         />
+        {/* Degradado para transición suave en los bordes */}
+        <div className="absolute top-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-b from-[#0a0a0a] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-t from-[#151515] to-transparent" />
       </div>
 
     <section id="albums" className="relative py-24 md:py-32 overflow-hidden bg-[#151515]">
