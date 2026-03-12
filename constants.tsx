@@ -72,7 +72,7 @@ export const REVIEWS: ReviewItem[] = [
     date: '2004',
     image: '/src/fotos/adagietto-mahler.jpg',
     youtubeUrl: 'https://www.youtube.com/watch?v=tChniKLgbjo',
-    sourceUrl: 'https://www.mundoclasico.com/articulo/6156/Gran-fiesta-de-entonaci%C3%B3n-natural',
+    sourceUrl: '/src/prensa/critica-mahler.jpg',
   },
   {
     id: 'harpDream',

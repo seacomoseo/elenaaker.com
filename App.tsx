@@ -172,22 +172,22 @@ const AudioPlayer = ({ lang }: { lang: Language }) => {
 const Hero = ({ lang }: { lang: Language }) => {
   const t = translations[lang].hero;
   return (
-    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative h-screen flex flex-col justify-end overflow-hidden pb-16 md:pb-24">
       <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed"
+        className="absolute inset-0 bg-cover bg-[center_10%] bg-fixed"
         style={{ backgroundImage: `url(${ASSETS.heroImg})` }}
       />
-      <div className="absolute inset-0 bg-black/50" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/90" />
+      <div className="absolute inset-0 bg-black/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
 
-      <div className="relative z-10 text-center px-6 w-full">
-        <h1 className="text-[clamp(2rem,8vw,9rem)] font-display mb-6 leading-none tracking-[0.15em] font-light uppercase whitespace-nowrap opacity-0 animate-[fadeIn_1.5s_ease-out_forwards]">
+      <div className="relative z-10 text-center md:text-left px-6 md:px-24 w-full">
+        <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-display mb-4 leading-none tracking-[0.1em] md:tracking-[0.15em] font-light uppercase whitespace-nowrap opacity-0 animate-[fadeIn_1.5s_ease-out_forwards]">
           {t.title}
         </h1>
-        <p className="text-xs sm:text-sm md:text-lg uppercase tracking-[0.5em] font-subtitle text-[#c5a059] mb-12 opacity-0 animate-[fadeIn_1.5s_ease-out_0.5s_forwards]">
+        <p className="text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] md:tracking-[0.5em] font-subtitle text-[#c5a059] mb-8 md:mb-12 opacity-0 animate-[fadeIn_1.5s_ease-out_0.5s_forwards]">
           {t.subtitle}
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-5 opacity-0 animate-[fadeIn_1.5s_ease-out_1s_forwards]">
+        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-5 opacity-0 animate-[fadeIn_1.5s_ease-out_1s_forwards]">
           <a
             href="#services"
             className="px-10 py-4 bg-[#c5a059] text-black text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white transition-all"
@@ -253,7 +253,7 @@ const Biography = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (
           <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-10 font-subtitle italic">{t.stageName}</p>
           <div className="space-y-6 text-gray-400 leading-relaxed font-light text-base md:text-lg">
             {t.summary.split('\n\n').map((para, i) => (
-              <p key={i}>{para}</p>
+              <p key={i} dangerouslySetInnerHTML={{ __html: para }} />
             ))}
           </div>
         </div>
@@ -289,9 +289,9 @@ const Biography = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (
               {/* Text Side */}
               <div className="flex-1">
                 <h3 className="text-xl md:text-2xl font-display font-light mb-4 text-white tracking-wide">{section.heading}</h3>
-                <div className={`text-gray-400 font-light text-base md:text-lg leading-relaxed ${section.isVision ? 'italic border-l border-[#c5a059]/20 pl-6' : ''}`}>
+                <div className={`text-gray-400 font-light text-base md:text-lg leading-relaxed ${section.isVision ? 'border-l border-[#c5a059]/20 pl-6' : ''}`}>
                   {section.text.split('\n\n').map((p, j) => (
-                    <p key={j} className="mb-4">{p}</p>
+                    <p key={j} className="mb-4" dangerouslySetInnerHTML={{ __html: p }} />
                   ))}
                 </div>
               </div>
@@ -322,7 +322,7 @@ const Biography = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (
 
 const Services = ({ lang }: { lang: Language }) => {
   const t = translations[lang].services;
-  const categoryKeys = ['goldenCeremony', 'emeraldSensory', 'privateResonance', 'heritage', 'composition', 'hospitality'] as const;
+  const categoryKeys = ['heritage', 'goldenCeremony', 'hospitality', 'composition', 'emeraldSensory', 'privateResonance'] as const;
 
   return (
     <section id="services" className="py-24 md:py-32 px-6 md:px-24 bg-white text-black">
@@ -613,7 +613,7 @@ const Discography = ({ lang }: { lang: Language }) => {
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,1) 100%)',
+            background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.8) 100%)',
           }}
         />
       </div>
@@ -859,17 +859,17 @@ function App() {
         <Contact lang={lang} />
       </main>
 
-      <footer className="py-16 md:py-20 bg-black text-center border-t border-white/5">
-        <div className="text-[10px] font-display font-light uppercase tracking-[1em] text-gray-500 mb-6">ELENA AKER</div>
+      <footer className="pt-16 pb-28 md:pt-20 md:pb-36 bg-black text-center border-t border-white/5">
+        <div className="text-[13px] md:text-[15px] font-display font-light uppercase tracking-[0.8em] md:tracking-[1em] text-gray-500 mb-6">ELENA AKER</div>
         <div className="mb-6">
           <button
             onClick={() => setShowPrivateArea(true)}
-            className="text-[9px] uppercase tracking-[0.2em] text-[#c5a059] hover:text-white transition-colors font-bold"
+            className="text-[11px] md:text-[13px] uppercase tracking-[0.2em] text-[#c5a059] hover:text-white transition-colors font-bold"
           >
             {ft.privateArea}
           </button>
         </div>
-        <div className="text-[9px] uppercase tracking-[0.2em] text-gray-600">
+        <div className="text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-gray-600">
           &copy; {new Date().getFullYear()} elenaaker.com &middot; {ft.rights}
         </div>
       </footer>
