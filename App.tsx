@@ -160,7 +160,10 @@ const AudioPlayer = ({ lang }: { lang: Language }) => {
         )}
       </button>
       <div className="flex flex-col min-w-0">
-        <span className="text-[9px] uppercase tracking-widest font-bold text-[#c5a059] truncate">{t.label}</span>
+        <span className="text-[9px] uppercase tracking-widest font-bold text-[#c5a059] truncate flex items-center gap-1">
+          {t.label}
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" /></svg>
+        </span>
         <span className="text-[10px] text-gray-400 font-light truncate">{t.track}</span>
       </div>
     </div>
@@ -172,22 +175,22 @@ const AudioPlayer = ({ lang }: { lang: Language }) => {
 const Hero = ({ lang }: { lang: Language }) => {
   const t = translations[lang].hero;
   return (
-    <section id="home" className="relative h-screen flex flex-col justify-end overflow-hidden pb-16 md:pb-24">
+    <section id="home" className="relative h-screen flex flex-col justify-end overflow-hidden pb-16 pb-24">
       <div
-        className="absolute inset-0 bg-cover bg-[center_10%] bg-fixed"
+        className="absolute inset-0 bg-fixed bg-[length:auto_100%] bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${ASSETS.heroImg})` }}
       />
       <div className="absolute inset-0 bg-black/10" />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
 
-      <div className="relative z-10 text-center md:text-left px-6 md:px-24 w-full">
+      <div className="relative z-10 text-center px-6 md:px-24 w-full">
         <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-display mb-4 leading-none tracking-[0.1em] md:tracking-[0.15em] font-light uppercase whitespace-nowrap opacity-0 animate-[fadeIn_1.5s_ease-out_forwards]">
           {t.title}
         </h1>
         <p className="text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] md:tracking-[0.5em] font-subtitle text-[#c5a059] mb-8 md:mb-12 opacity-0 animate-[fadeIn_1.5s_ease-out_0.5s_forwards]">
           {t.subtitle}
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-5 opacity-0 animate-[fadeIn_1.5s_ease-out_1s_forwards]">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-5 opacity-0 animate-[fadeIn_1.5s_ease-out_1s_forwards]">
           <a
             href="#services"
             className="px-10 py-4 bg-[#c5a059] text-black text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white transition-all"
@@ -251,7 +254,7 @@ const Biography = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (
           <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{t.sectionLabel}</span>
           <h2 className="text-4xl md:text-5xl font-display font-light mb-4">{t.title}</h2>
           <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-10 font-subtitle italic">{t.stageName}</p>
-          <div className="space-y-6 text-gray-400 leading-relaxed font-light text-base md:text-lg">
+          <div className="space-y-6 text-gray-400 leading-relaxed font-light text-base md:text-lg bio-text">
             {t.summary.split('\n\n').map((para, i) => (
               <p key={i} dangerouslySetInnerHTML={{ __html: para }} />
             ))}
@@ -289,7 +292,7 @@ const Biography = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (
               {/* Text Side */}
               <div className="flex-1">
                 <h3 className="text-xl md:text-2xl font-display font-light mb-4 text-white tracking-wide">{section.heading}</h3>
-                <div className={`text-gray-400 font-light text-base md:text-lg leading-relaxed ${section.isVision ? 'border-l border-[#c5a059]/20 pl-6' : ''}`}>
+                <div className="text-gray-400 font-light text-base md:text-lg leading-relaxed bio-text border-l border-[#c5a059]/20 pl-6">
                   {section.text.split('\n\n').map((p, j) => (
                     <p key={j} className="mb-4" dangerouslySetInnerHTML={{ __html: p }} />
                   ))}
@@ -599,8 +602,9 @@ const Discography = ({ lang }: { lang: Language }) => {
   };
 
   return (
-    <section id="albums" className="relative py-24 md:py-32 overflow-hidden">
-      <div className="absolute inset-0">
+    <>
+      {/* Contenedor divisor para el vídeo, ya no es background de los álbumes */}
+      <div className="w-full bg-[#0a0a0a] flex items-center justify-center">
         <video
           ref={videoRef}
           src={ASSETS.videoBg}
@@ -608,16 +612,11 @@ const Discography = ({ lang }: { lang: Language }) => {
           loop
           playsInline
           preload="none"
-          className="w-full h-full object-cover"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.8) 100%)',
-          }}
+          className="w-full h-auto object-cover"
         />
       </div>
 
+    <section id="albums" className="relative py-24 md:py-32 overflow-hidden bg-[#151515]">
       <div className="relative z-10">
         <div className="max-w-7xl mx-auto px-6 md:px-24">
           <div className="flex items-end justify-between mb-16 md:mb-20">
@@ -660,7 +659,7 @@ const Discography = ({ lang }: { lang: Language }) => {
           }}
         >
           {ALBUMS.map((album, idx) => (
-            <div key={idx} className="flex-shrink-0 w-[280px] sm:w-[320px] snap-center group bg-black/40 p-6 border border-white/5 rounded-lg backdrop-blur-sm hover:border-[#c5a059]/40 transition-all">
+            <div key={idx} className="flex-shrink-0 w-[280px] sm:w-[320px] snap-center group bg-[#222] p-6 border border-white/5 rounded-lg backdrop-blur-sm hover:border-[#c5a059]/40 transition-all">
               <div className="relative overflow-hidden aspect-square mb-6 shadow-2xl rounded group/img">
                 <img
                   src={album.image}
@@ -696,6 +695,7 @@ const Discography = ({ lang }: { lang: Language }) => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

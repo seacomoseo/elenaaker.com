@@ -72,7 +72,7 @@ export const REVIEWS: ReviewItem[] = [
     date: '2004',
     image: '/src/fotos/adagietto-mahler.jpg',
     youtubeUrl: 'https://www.youtube.com/watch?v=tChniKLgbjo',
-    sourceUrl: '/src/prensa/critica-mahler.jpg',
+    sourceUrl: '/pdf/critica-mundo-clasico.pdf',
   },
   {
     id: 'harpDream',

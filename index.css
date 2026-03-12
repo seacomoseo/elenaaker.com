@@ -71,3 +71,13 @@ html {
     background-attachment: scroll;
   }
 }
+
+/* Bio Text Contrast & Weight */
+.bio-text b, .bio-text strong {
+  color: #e5cc98;
+}
+
+.bio-text i, .bio-text em {
+  font-style: italic;
+  color: #e5cc98;
+}
