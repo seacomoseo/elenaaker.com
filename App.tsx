@@ -786,18 +786,30 @@ const PrivateArea = ({ lang, onClose }: { lang: Language, onClose: () => void })
             {error && <p className="text-red-500 text-[10px] text-center uppercase tracking-widest">{t.error}</p>}
           </form>
         ) : (
-          <div className="text-center animate-fade-in">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#c5a059]/20 flex items-center justify-center">
-              <svg className="w-8 h-8 text-[#c5a059]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <div className="w-full animate-fade-in">
+            <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#c5a059] mb-4 text-center">{t.downloadLabel}</h4>
+            <div className="flex flex-col gap-2">
+              <a href="/material-publicitario/material-grafico.zip" download className="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[9px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+                {t.downloadGraphic}
+                <svg className="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </a>
+              <a href="/material-publicitario/fuentes-tipograficas.zip" download className="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[9px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+                {t.downloadFonts}
+                <svg className="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </a>
+              <a href="/material-publicitario/videos-contrataciones/Teatro%20Real%20de%20Madrid%20copia.mp4" download className="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[9px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+                {t.downloadVideoTeatro}
+                <svg className="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </a>
+              <a href="/material-publicitario/videos-contrataciones/Museo%20del%20Prado%20copia%202.mp4" download className="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[9px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+                {t.downloadVideoPrado}
+                <svg className="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </a>
+              <a href="/material-publicitario/videos-contrataciones/Ruinas%20romanas%2000%20copia.mp4" download className="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[9px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+                {t.downloadVideoRomanas}
+                <svg className="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </a>
             </div>
-            <a
-              href="/material-publicitario.zip"
-              download
-              className="inline-block px-8 py-4 bg-[#c5a059] text-black font-bold uppercase tracking-widest text-[10px] rounded hover:bg-white transition-all"
-            >
-              <svg className="w-4 h-4 inline mr-2 -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              {t.download}
-            </a>
           </div>
         )}
       </div>
