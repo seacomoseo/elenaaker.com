@@ -23,3 +23,12 @@ export interface Photo {
   alt: string;
   importance: number;
 }
+
+export interface ReviewItem {
+  id: string;
+  date: string;
+  image?: string;
+  youtubeUrl?: string;
+  audioUrl?: string;
+  sourceUrl?: string;
+}

@@ -6,118 +6,276 @@ export const translations = {
     nav: {
       home: 'Inicio',
       bio: 'Biografía',
+      services: 'Servicios',
+      reviews: 'Prensa',
       discography: 'Discos',
-      booking: 'Contratación',
-      downloads: 'Descargas',
-      contact: 'Contacto'
+      contact: 'Contacto',
     },
     hero: {
-      title: 'Elena Aker',
-      subtitle: 'Arpista Profesional',
-      cta: 'Ver Repertorio'
+      title: 'ELENA AKER',
+      subtitle: 'Arpista · Compositora · Artista',
+      cta: 'Descubrir',
+      ctaBooking: 'Contratación',
     },
     bio: {
-      title: 'Biografía Profesional',
-      content: `Elena Aker es una de las pocas arpistas en España con casi 3 horas de repertorio de bandas sonoras de cine. Su trayectoria incluye colaboraciones con prestigiosas orquestas, grabaciones de estudio y una versatilidad única que le permite adaptarse a encargos de producción e interpretación de alta exigencia.\n\nEspecializada en la creación de ambientes sonoros sofisticados, Elena combina la técnica clásica con una visión moderna y profesional, alejándose de estéticas puramente espirituales para centrarse en la excelencia artística y técnica.`,
-      ytTitle: 'Videos Destacados'
+      sectionLabel: 'Trayectoria',
+      title: 'Biografía',
+      badge: 'Arpista · Compositora',
+      stageName: 'Elena Aker, nombre artístico de María Elena Vázquez Quesada',
+      summary: 'Elena Aker es intérprete de arpa sinfónica y arpa celta, nacida en Madrid y con raíces gallegas, vascas y asturianas, influencias culturales que han marcado su sensibilidad artística y su identidad musical.\n\nRealizó sus estudios en el Real Conservatorio Superior de Música de Madrid y completó su formación a través de la Royal School of Music de Londres, desarrollando su técnica bajo la dirección de la maestra Zoraida Ávila, discípula directa de Vera Dúlova, figura histórica del arpa en el Conservatorio de Moscú y una de las grandes referentes internacionales del instrumento durante el siglo XX.\n\nSu trayectoria combina el rigor académico de la tradición sinfónica con una profunda vocación artística orientada a la emoción, la estética escénica y la comunicación sensorial con el público.',
+      readMore: 'Leer más',
+      readLess: 'Cerrar',
+      extendedTitle: 'Trayectoria Completa',
+      extendedCareer: 'Elena Aker ha desarrollado una extensa carrera interpretativa colaborando con numerosas orquestas sinfónicas españolas, entre ellas: Orquesta Sinfónica Ciudad de Oviedo, Orquesta Sinfónica de Baleares, Orquesta Sinfónica de Córdoba, Orquesta Sinfónica de Telecinco, Orquesta Sinfónica de la Comunidad de Madrid (OSEM), Orquesta Sinfónica Reina Sofía y Orquesta Sinfónica Filarmonía de España.\n\nSu actividad artística se extiende al ámbito lírico y escénico, participando en producciones de zarzuela, ópera y teatro musical, actuando en espacios emblemáticos como el Auditorio Nacional, Teatro Real, Teatro de la Villa de Madrid y el Museo Nacional del Prado.\n\nEn el ámbito camerístico, ha colaborado con formaciones como el ensemble "Los Virtuosos de Moscú". Ha grabado para Sony España en el Auditorio Nacional interpretando Le Tombeau de Couperin de Maurice Ravel, y ha participado en una producción discográfica junto a la Camerata de la Escuela Superior de Música Reina Sofía, interpretando el Adagietto de Gustav Mahler bajo la dirección de Rainer Schmidt.',
+      extendedHighlights: 'Entre los hitos más destacados de su carrera figuran: concierto inaugural del Auditorio Cardenal Gonzaga ante S. M. la Reina Doña Sofía, participación en el Ciclo de Música Renacentista de Caja Madrid, estrenos de obras contemporáneas en actos culturales e institucionales, invitaciones recurrentes como arpista por la Embajada de Irlanda, y dirección musical de diversas agrupaciones vocales y proyectos escénicos. Su interpretación se distingue por una expresividad profunda, una cuidada estética sonora y una capacidad singular para generar atmósferas emocionales que conectan con el oyente.',
+      extendedHospitality: 'Elena Aker desarrolla propuestas musicales específicamente para el sector hotelero, turístico y gastronómico de alta gama. Ha colaborado con reconocidos hoteles y espacios de lujo como: Westin Palace, Hotel Ritz, Hilton, Hotel Villamagna, Vincci del Mar, Mirasierra Suites y Servigroup Hotels. Estas colaboraciones avalan una trayectoria artística consolidada en el sector hospitality premium, donde la música en directo se convierte en un elemento diferenciador de la experiencia del cliente.',
+      extendedComposition: 'Paralelamente a su carrera interpretativa, desarrolla una sólida trayectoria creativa como compositora, productora musical, cantante, locutora y creadora audiovisual. Realiza producciones musicales incluyendo composición original, arreglos y música sincronizada para cine, publicidad y proyectos audiovisuales. Durante más de dos décadas ha trabajado en las principales cadenas de televisión españolas —TVE, Antena 3, Telecinco, Cuatro, Canal Plus y diversas plataformas digitales— tanto en funciones artísticas como de producción sonora.',
+      extendedSinger: 'Su versatilidad se extiende al ámbito vocal, destacando como miembro del cuarteto vocal del programa Lo + Plus, participación como vocalista en campañas publicitarias televisivas y colaboraciones en diversos proyectos discográfico. También desarrolla sesiones de bienestar emocional (Harp Wellness) a través de la vibración sonora del arpa para entornos corporativos y espacios terapéuticos.',
+      extendedLegacy: 'A través de su proyecto educativo, busca acercar la música y el arte a la infancia y juventud mediante conciertos didácticos. Su compromiso social incluye formatos solidarios para colectivos infantiles en situación vulnerable, integrando la música como herramienta de transformación y apoyo.',
+      extendedVision: 'La obra de Elena Aker se fundamenta en la búsqueda de una expresión musical que integre excelencia técnica, sensibilidad estética y comunicación emocional, concibiendo cada actuación como una experiencia artística única e irrepetible.',
+    },
+    services: {
+      sectionLabel: 'Experiencias Exclusivas',
+      title: 'Servicios',
+      intro: 'Los servicios tradicionales de actuación musical evolucionan en Elena Aker hacia experiencias artísticas exclusivas diseñadas a medida, tanto en lo estético, como en lo emocional y sensorial.',
+      cta: 'Solicitar Información',
+      categories: {
+        goldenCeremony: {
+          title: 'Ceremonia Dorada',
+          subtitle: 'Enlaces matrimoniales',
+          desc: 'Diseño musical integral para ceremonias y momentos simbólicos de alto valor emocional. Incluye diseño musical personalizado, selección de repertorio exclusiva y dirección artística del momento ceremonial.',
+        },
+        emeraldSensory: {
+          title: 'Experiencia Sensorial Esmeralda',
+          subtitle: 'Amenizaciones',
+          desc: 'Experiencia sonora inmersiva para cócteles y recepciones de alto nivel, eventos sociales exclusivos, exposiciones culturales y celebraciones privadas selectas.',
+        },
+        privateResonance: {
+          title: 'Resonancia Privada',
+          subtitle: 'Pases privados',
+          desc: 'Conciertos íntimos como vivencias artísticas personalizadas: arpa solista, arpa + voz, arpa + violín, experiencias sorpresa. Disponible en domicilios y espacios singulares.',
+        },
+        heritage: {
+          title: 'Patrimonio y Prestigio',
+          subtitle: 'Conciertos y teatros',
+          desc: 'Propuesta artística orientada a eventos institucionales, culturales y corporativos. Trayectoria en Auditorio Nacional, Teatro Real y Museo Nacional del Prado.',
+        },
+        composition: {
+          title: 'Composición a Medida',
+          subtitle: 'Composición y producción',
+          desc: 'Creación musical original: bandas sonoras, música para cine y publicidad, producción musical personalizada, arreglos y grabación profesional.',
+        },
+        hospitality: {
+          title: 'Hospitalidad de Lujo',
+          subtitle: 'Hoteles y turismo premium',
+          desc: 'Propuestas musicales para el sector hotelero y gastronómico de alta gama. Colaboraciones con Westin Palace, Hotel Ritz, Hilton, Hotel Villamagna y más.',
+        },
+      },
+    },
+    reviews: {
+      sectionLabel: 'Prensa & Medios',
+      title: 'Reseñas',
+      items: {
+        mahler: {
+          title: 'Crítica: Adagietto de Mahler',
+          desc: 'Desde el Auditorio Nacional de Madrid, con la Camerata de la Escuela Superior Reina Sofía, bajo la dirección de Rainer Schmidt.',
+          quote: '«El arpa surge con una claridad y la proporción sonora [maravillosa]... por esta pequeña formación, la belleza de esta página surgió en todo su esplendor»',
+          quoteAuthor: 'Juan Krakenberger — MundoClasico.com',
+          watch: 'Escuchar',
+          source: 'Ver crítica',
+        },
+        harpDream: {
+          title: 'Single: Harp Dream',
+          desc: 'Single profesional que refleja su trabajo como artista y compositora. Producción musical con sello artístico propio.',
+          watch: 'Escuchar',
+        },
+        trueba: {
+          title: 'Colaboración con David Trueba y Jorge Sanz',
+          desc: 'Participación en la grabación del capítulo especial de la serie "Qué fue de Jorge Sanz" (Canal+), dirigida por David Trueba, aportando una interpretación con el arpa.',
+          source: 'Ver info de la serie',
+        },
+        museoPrado: {
+          title: 'Actuación en el Museo del Prado',
+          desc: 'Actuación de Elena Aker en el Museo Nacional del Prado, uno de los espacios culturales más emblemáticos de España.',
+          source: 'Ver info del museo del prado',
+        },
+        coralPeniscola: {
+          title: 'Concierto Coral en Peñíscola',
+          desc: 'Concert amb la Coral Polifónica de Peñíscola i la Coral Da Capo de Benicarló en el Edificio Sociocultural.',
+          source: 'Ver info de la coral',
+        },
+        videoclipRascafria: {
+          title: 'Videoclip en Rascafría',
+          desc: 'Grabación de videoclip en Rascafría con un vestido de la diseñadora KAREEV RENCLAR.',
+          source: 'Ver info de Rascafría',
+        },
+        nouForcat: {
+          title: 'El Nou Forcat — Radio en directo',
+          desc: 'Elena Aker interpretando el arpa en directo en el programa El Nou Forcat de Silvia Soria (99.9 Valencia Radio).',
+          watch: 'Ver y Escuchar',
+        },
+      },
     },
     albums: {
-      title: 'Discografía'
+      title: 'Discografía',
+      available: 'Disponible en:',
     },
-    booking: {
-      title: 'Management & Booking',
-      subtitle: 'Opciones de Contratación',
-      eventos: {
-        title: 'Eventos',
-        desc: 'Actuaciones exclusivas para eventos corporativos, galas y celebraciones privadas. Elegancia y distinción garantizada.'
-      },
-      conciertos: {
-        title: 'Conciertos',
-        desc: 'Recitales especializados en bandas sonoras de cine y música contemporánea para auditorios y festivales.'
-      },
-      grabaciones: {
-        title: 'Grabaciones y encargos',
-        desc: 'Sesiones de grabación en estudio para bandas sonoras, publicidad y producciones musicales. Alta adaptabilidad.'
-      },
-      otros: {
-        title: 'Otras contrataciones',
-        desc: 'Asesoría musical, proyectos interdisciplinares y cualquier otra necesidad artística que requiera el arpa.'
-      },
-      footer: 'Contacta para solicitar información y presupuesto.'
+    contact: {
+      title: 'Contacto',
     },
-    downloads: {
-      title: 'Descargas Protegidas',
+    privateArea: {
+      title: 'Área Privada',
       locked: 'Material para prensa y cartelería',
       placeholder: 'Introduce la clave de acceso',
       btn: 'Acceder',
       error: 'Clave incorrecta',
-      files: 'Archivos Disponibles'
+      download: 'Descargar Material Publicitario',
     },
-    contact: {
-      title: 'Contacto',
-      name: 'Nombre',
-      email: 'Email',
-      message: 'Mensaje',
-      send: 'Enviar Mensaje'
-    }
+    footer: {
+      rights: 'Todos los derechos reservados',
+      privateArea: 'Área Privada',
+    },
+    audioPlayer: {
+      label: 'Música de Fondo',
+      track: 'Solo Arpa',
+    },
   },
   [Language.EN]: {
     nav: {
       home: 'Home',
       bio: 'Biography',
+      services: 'Services',
+      reviews: 'Press',
       discography: 'Albums',
-      booking: 'Booking',
-      downloads: 'Downloads',
-      contact: 'Contact'
+      contact: 'Contact',
     },
     hero: {
-      title: 'Elena Aker',
-      subtitle: 'Professional Harpist',
-      cta: 'View Repertoire'
+      title: 'ELENA AKER',
+      subtitle: 'Harpist · Composer · Artist',
+      cta: 'Discover',
+      ctaBooking: 'Booking',
     },
     bio: {
-      title: 'Professional Biography',
-      content: `Elena Aker is one of the few harpists in Spain with nearly 3 hours of cinema soundtrack repertoire. Her career includes collaborations with prestigious orchestras, studio recordings, and a unique versatility that allows her to adapt to high-demand production and interpretation commissions.\n\nSpecialized in creating sophisticated soundscapes, Elena combines classical technique with a modern, professional vision, moving away from purely spiritual aesthetics to focus on artistic and technical excellence.`,
-      ytTitle: 'Featured Videos'
+      sectionLabel: 'Career',
+      title: 'Biography',
+      badge: 'Harpist · Composer',
+      stageName: 'Elena Aker, stage name of María Elena Vázquez Quesada',
+      summary: 'Elena Aker is a symphonic and Celtic harp performer, born in Madrid with Galician, Basque and Asturian roots — cultural influences that have shaped her artistic sensitivity and musical identity.\n\nShe completed her studies at the Royal Superior Conservatory of Music in Madrid and furthered her training through the Royal School of Music in London, developing her technique under the guidance of maestro Zoraida Ávila, a direct disciple of Vera Dúlova, a historic figure of the harp at the Moscow Conservatory and one of the great international references of the instrument during the 20th century.\n\nHer career combines the academic rigor of the symphonic tradition with a deep artistic vocation oriented towards emotion, stage aesthetics and sensory communication with the audience.',
+      readMore: 'Read more',
+      readLess: 'Close',
+      extendedTitle: 'Full Career',
+      extendedCareer: 'Elena Aker has developed an extensive interpretive career collaborating with numerous Spanish symphonic orchestras, including: Ciudad de Oviedo Symphonic Orchestra, Balearic Symphonic Orchestra, Córdoba Symphonic Orchestra, Telecinco Symphonic Orchestra, Community of Madrid Symphonic Orchestra (OSEM), Reina Sofía Symphonic Orchestra and Filarmonía de España Symphonic Orchestra.\n\nHer artistic activity extends to the lyric and stage realm, participating in zarzuela, opera and musical theatre productions, performing in emblematic venues such as the National Auditorium, Teatro Real, Teatro de la Villa de Madrid and the National Prado Museum. In the chamber music field, she has collaborated with ensembles such as "Los Virtuosos de Moscú". She has recorded for Sony Spain at the National Auditorium performing Le Tombeau de Couperin by Maurice Ravel, and participated in a recording production alongside the Camerata of the Reina Sofía Superior School of Music, performing Gustav Mahler\'s Adagietto under the direction of Rainer Schmidt.',
+      extendedHighlights: 'Among the most notable milestones of her career: inaugural concert at the Cardenal Gonzaga Auditorium before H.M. Queen Sofía, participation in the Caja Madrid Renaissance Music Cycle, premieres of contemporary works in cultural and institutional acts, recurring invitations as harpist by the Embassy of Ireland, and musical direction of various vocal groups and stage projects. Her performance is distinguished by deep expressiveness and a singular ability to generate emotional atmospheres.',
+      extendedHospitality: 'Elena Aker develops musical proposals specifically for the high-end hotel, tourism, and gastronomic sectors. She has collaborated with renowned luxury hotels and venues such as: Westin Palace, Hotel Ritz, Hilton, Hotel Villamagna, Vincci del Mar, Mirasierra Suites, and Servigroup Hotels. These collaborations attest to a consolidated artistic trajectory in the premium hospitality sector, where live music becomes a differentiating element of the guest experience.',
+      extendedComposition: 'Parallel to her interpretive career, she develops a solid creative trajectory as a composer, music producer, singer, voice-over artist and audiovisual creator. She undertakes music productions including original composition, arrangements and synchronized music for film, advertising and audiovisual projects. For over two decades she has worked at Spain\'s major television networks — TVE, Antena 3, Telecinco, Cuatro, Canal Plus and various digital platforms — in both artistic and sound production roles.',
+      extendedSinger: 'Her artistic versatility extends to the vocal realm, notably as a member of the vocal quartet on the TV show Lo + Plus, as a vocalist in television advertising campaigns and vocal collaborations on various recording projects. She also develops emotional wellbeing sessions (Harp Wellness) through the sound vibration of the harp for corporate environments and therapeutic spaces.',
+      extendedLegacy: 'Through her educational project, she seeks to bring music and art closer to childhood and youth through educational concerts. Her social commitment includes solidarity formats for children\'s groups in vulnerable situations, integrating music as a tool for transformation and support.',
+      extendedVision: 'Elena Aker\'s work is founded on the pursuit of a musical expression that integrates technical excellence, aesthetic sensitivity and emotional communication, conceiving each performance as a unique and unrepeatable artistic experience.',
+    },
+    services: {
+      sectionLabel: 'Exclusive Experiences',
+      title: 'Services',
+      intro: 'Traditional musical performance services evolve with Elena Aker into exclusive artistic experiences custom-designed in their aesthetic, emotional and sensory dimensions.',
+      cta: 'Request Information',
+      categories: {
+        goldenCeremony: {
+          title: 'Golden Ceremony',
+          subtitle: 'Wedding ceremonies',
+          desc: 'Comprehensive musical design for ceremonies and symbolic moments of high emotional value. Includes personalized musical design, exclusive repertoire selection and artistic direction.',
+        },
+        emeraldSensory: {
+          title: 'Emerald Sensory Experience',
+          subtitle: 'Entertainment',
+          desc: 'Immersive sound experience for high-level cocktails and receptions, exclusive social events, cultural exhibitions and select private celebrations.',
+        },
+        privateResonance: {
+          title: 'Private Resonance',
+          subtitle: 'Private sessions',
+          desc: 'Intimate concerts as personalized artistic experiences: solo harp, harp + voice, harp + violin, surprise experiences. Available at homes and unique venues.',
+        },
+        heritage: {
+          title: 'Heritage & Prestige',
+          subtitle: 'Concerts & theatres',
+          desc: 'Artistic proposal for institutional, cultural and corporate events. Career spanning National Auditorium, Teatro Real and National Prado Museum.',
+        },
+        composition: {
+          title: 'Signature Composition',
+          subtitle: 'Composition & production',
+          desc: 'Original musical creation: soundtracks, music for film and advertising, personalized music production, arrangements and professional recording.',
+        },
+        hospitality: {
+          title: 'Luxury Hospitality',
+          subtitle: 'Hotels & premium tourism',
+          desc: 'Musical proposals for high-end hotel and gastronomic sectors. Collaborations with Westin Palace, Hotel Ritz, Hilton, Hotel Villamagna and more.',
+        },
+      },
+    },
+    reviews: {
+      sectionLabel: 'Press & Media',
+      title: 'Reviews',
+      items: {
+        mahler: {
+          title: 'Review: Mahler\'s Adagietto',
+          desc: 'Recorded at the National Auditorium of Madrid, with the Camerata of the Reina Sofía Superior School of Music, under the direction of Rainer Schmidt.',
+          quote: '"The harp emerges with a clarity and tonal proportion [wonderful]... through this small ensemble, the beauty of this page arose in all its splendour"',
+          quoteAuthor: 'Juan Krakenberger — MundoClasico.com',
+          watch: 'Listen',
+          source: 'View review',
+        },
+        harpDream: {
+          title: 'Single: Harp Dream',
+          desc: 'Professional single reflecting her work as an artist and composer. Music production with her signature artistic style.',
+          watch: 'Listen',
+        },
+        trueba: {
+          title: 'Collaboration with David Trueba & Jorge Sanz',
+          desc: 'Participation in the recording of the special episode of the series "Qué fue de Jorge Sanz" (Canal+), directed by David Trueba, contributing a harp interpretation.',
+          source: 'View series info',
+        },
+        museoPrado: {
+          title: 'Performance at the Prado Museum',
+          desc: 'Elena Aker performing at the National Prado Museum, one of Spain\'s most emblematic cultural spaces.',
+          source: 'View Prado Museum info',
+        },
+        coralPeniscola: {
+          title: 'Choral Concert in Peñíscola',
+          desc: 'Concert with the Coral Polifónica de Peñíscola and the Coral Da Capo de Benicarló at the Edificio Sociocultural.',
+          source: 'View choir info',
+        },
+        videoclipRascafria: {
+          title: 'Music Video in Rascafría',
+          desc: 'Music video recording in Rascafría wearing a dress by designer KAREEV RENCLAR.',
+          source: 'View Rascafría info',
+        },
+        nouForcat: {
+          title: 'El Nou Forcat — Live Radio',
+          desc: 'Elena Aker performing live harp on the El Nou Forcat program by Silvia Soria (99.9 Valencia Radio).',
+          watch: 'Watch & Listen',
+        },
+      },
     },
     albums: {
-      title: 'Discography'
+      title: 'Discography',
+      available: 'Available on:',
     },
-    booking: {
-      title: 'Management & Booking',
-      subtitle: 'Booking Options',
-      eventos: {
-        title: 'Events',
-        desc: 'Exclusive performances for corporate events, galas, and private celebrations. Guaranteed elegance and distinction.'
-      },
-      conciertos: {
-        title: 'Concerts',
-        desc: 'Specialized recitals in film soundtracks and contemporary music for concert halls and festivals.'
-      },
-      grabaciones: {
-        title: 'Recordings & Commissions',
-        desc: 'Studio recording sessions for soundtracks, advertising, and music productions. High adaptability.'
-      },
-      otros: {
-        title: 'Other Bookings',
-        desc: 'Musical consultancy, interdisciplinary projects, and any other artistic needs requiring the harp.'
-      },
-      footer: 'Contact to request information and quotes.'
+    contact: {
+      title: 'Contact',
     },
-    downloads: {
-      title: 'Protected Downloads',
+    privateArea: {
+      title: 'Private Area',
       locked: 'Press and media materials',
       placeholder: 'Enter access key',
       btn: 'Access',
       error: 'Incorrect key',
-      files: 'Available Files'
+      download: 'Download Press Kit',
     },
-    contact: {
-      title: 'Contact',
-      name: 'Name',
-      email: 'Email',
-      message: 'Message',
-      send: 'Send Message'
-    }
-  }
+    footer: {
+      rights: 'All rights reserved',
+      privateArea: 'Private Area',
+    },
+    audioPlayer: {
+      label: 'Background Music',
+      track: 'Solo Harp',
+    },
+  },
 };
