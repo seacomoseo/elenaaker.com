@@ -616,30 +616,30 @@ const Discography = ({ lang }: { lang: Language }) => {
         />
         {/* Degradado para transición suave en los bordes */}
         <div className="absolute top-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-b from-[#0a0a0a] to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-t from-[#151515] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-t from-white to-transparent" />
       </div>
 
-    <section id="albums" className="relative py-24 md:py-32 overflow-hidden bg-[#151515]">
+    <section id="albums" className="relative py-24 md:py-32 overflow-hidden bg-white">
       <div className="relative z-10">
         <div className="max-w-7xl mx-auto px-6 md:px-24">
           <div className="flex items-end justify-between mb-16 md:mb-20">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{lang === Language.ES ? 'Catálogo' : 'Catalog'}</span>
-              <h2 className="text-4xl md:text-5xl font-display font-light text-white">{t.title}</h2>
+              <h2 className="text-4xl md:text-5xl font-display font-light text-black">{t.title}</h2>
             </div>
             {isScrollable && (
               <div className="flex items-center space-x-3">
                 <button
                   onClick={() => scroll('left')}
                   disabled={!canScrollLeft}
-                  className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${canScrollLeft ? 'border-[#c5a059] text-[#c5a059] hover:bg-[#c5a059] hover:text-black' : 'border-white/10 text-white/20 cursor-default'}`}
+                  className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${canScrollLeft ? 'border-[#c5a059] text-[#c5a059] hover:bg-[#c5a059] hover:text-white' : 'border-black/10 text-black/20 cursor-default'}`}
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
                 <button
                   onClick={() => scroll('right')}
                   disabled={!canScrollRight}
-                  className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${canScrollRight ? 'border-[#c5a059] text-[#c5a059] hover:bg-[#c5a059] hover:text-black' : 'border-white/10 text-white/20 cursor-default'}`}
+                  className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${canScrollRight ? 'border-[#c5a059] text-[#c5a059] hover:bg-[#c5a059] hover:text-white' : 'border-black/10 text-black/20 cursor-default'}`}
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
@@ -662,14 +662,14 @@ const Discography = ({ lang }: { lang: Language }) => {
           }}
         >
           {ALBUMS.map((album, idx) => (
-            <div key={idx} className="flex-shrink-0 w-[280px] sm:w-[320px] snap-center group bg-[#222] p-6 border border-white/5 rounded-lg backdrop-blur-sm hover:border-[#c5a059]/40 transition-all">
+            <div key={idx} className="flex-shrink-0 w-[280px] sm:w-[320px] snap-center group bg-gray-50 p-6 border border-gray-200 rounded-lg hover:border-[#c5a059]/40 hover:shadow-xl transition-all">
               <div className="relative overflow-hidden aspect-square mb-6 shadow-2xl rounded group/img">
                 <img
                   src={album.image}
                   alt={album.title}
                   className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-1000"
                 />
-                <div className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center p-6 text-center backdrop-blur-md">
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-[12px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center border border-white/10">
                   <span className="text-[10px] font-bold text-[#c5a059] uppercase tracking-[0.4em] mb-8">{t.available}</span>
                   <div className="grid grid-cols-3 gap-5">
                     {Object.entries(album.links).map(([platform, url]) => (
@@ -691,7 +691,7 @@ const Discography = ({ lang }: { lang: Language }) => {
                   </div>
                 </div>
               </div>
-              <h3 className="text-xl font-display font-light mb-2 text-white">{album.title}</h3>
+              <h3 className="text-xl font-display font-light mb-2 text-black">{album.title}</h3>
               <p className="text-[10px] text-[#c5a059] font-bold uppercase tracking-widest">{album.artist}</p>
             </div>
           ))}
