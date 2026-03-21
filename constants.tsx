@@ -15,7 +15,7 @@ export const ASSETS = {
     { url: '/src/fotos/9.jpg', alt: 'Elena Aker - En directo', importance: 10 },
     { url: '/src/fotos/10.jpg', alt: 'Elena Aker - Sesión fotográfica', importance: 11 },
   ],
-  heroImg: '/src/fotos/1.jpg',
+  heroImg: '/src/fotos/7.jpg',
   videoBg: '/src/video-background.mp4',
   videoPoster: '/src/video-background.jpg',
   audio: '/src/audio/harp-dream-solo-arpa.mp3',
@@ -68,17 +68,17 @@ export const ALBUMS: Album[] = [
 
 export const REVIEWS: ReviewItem[] = [
   {
+    id: 'harpDream',
+    date: '2024',
+    image: 'https://img.youtube.com/vi/xTIItHIVAW8/hqdefault.jpg',
+    youtubeUrl: 'https://www.youtube.com/watch?v=xTIItHIVAW8&list=RDxTIItHIVAW8&start_radio=1',
+  },
+  {
     id: 'mahler',
     date: '2004',
     image: '/src/fotos/adagietto-mahler.jpg',
     youtubeUrl: 'https://www.youtube.com/watch?v=tChniKLgbjo',
     sourceUrl: '/pdf/critica-mundo-clasico.pdf',
-  },
-  {
-    id: 'harpDream',
-    date: '2024',
-    image: 'https://img.youtube.com/vi/xTIItHIVAW8/hqdefault.jpg',
-    youtubeUrl: 'https://www.youtube.com/watch?v=xTIItHIVAW8',
   },
   {
     id: 'trueba',

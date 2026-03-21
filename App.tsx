@@ -75,7 +75,7 @@ const Navbar = ({ lang, setLang, activeSection }: { lang: Language, setLang: (l:
         ELENA AKER
       </a>
 
-      <div className="hidden lg:flex space-x-8 text-[10px] font-semibold uppercase tracking-[0.2em]">
+      <div className="hidden lg:flex space-x-8 text-[11px] font-semibold uppercase tracking-[0.2em]">
         {sections.map(s => (
           <a
             key={s.id}
@@ -94,7 +94,7 @@ const Navbar = ({ lang, setLang, activeSection }: { lang: Language, setLang: (l:
           aria-label="Change language"
         >
           {lang === Language.ES ? <FlagGB /> : <FlagES />}
-          <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400 hidden sm:inline">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden sm:inline">
             {lang === Language.ES ? 'EN' : 'ES'}
           </span>
         </button>
@@ -118,7 +118,7 @@ const Navbar = ({ lang, setLang, activeSection }: { lang: Language, setLang: (l:
                 key={s.id}
                 href={`#${s.id}`}
                 onClick={() => setIsMenuOpen(false)}
-                className={`text-[11px] font-semibold uppercase tracking-[0.2em] py-2 ${activeSection === s.id ? 'text-[#c5a059]' : 'text-gray-400'} hover:text-[#c5a059] transition-colors`}
+                className={`text-[12px] font-semibold uppercase tracking-[0.2em] py-2 ${activeSection === s.id ? 'text-[#c5a059]' : 'text-gray-400'} hover:text-[#c5a059] transition-colors`}
               >
                 {s.label}
               </a>
@@ -160,11 +160,11 @@ const AudioPlayer = ({ lang }: { lang: Language }) => {
         )}
       </button>
       <div className="flex flex-col min-w-0">
-        <span className="text-[9px] uppercase tracking-widest font-bold text-[#c5a059] truncate flex items-center gap-1">
+        <span className="text-[10px] uppercase tracking-widest font-bold text-[#c5a059] truncate flex items-center gap-1">
           {t.label}
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" /></svg>
         </span>
-        <span className="text-[10px] text-gray-400 font-light truncate">{t.track}</span>
+        <span className="text-[11px] text-gray-400 font-light truncate">{t.track}</span>
       </div>
     </div>
   );
@@ -175,31 +175,28 @@ const AudioPlayer = ({ lang }: { lang: Language }) => {
 const Hero = ({ lang }: { lang: Language }) => {
   const t = translations[lang].hero;
   return (
-    <section id="home" className="relative h-screen flex flex-col justify-end overflow-hidden pb-16 pb-24">
+    <section id="home" className="relative h-screen bg-black flex flex-col justify-end overflow-hidden pb-16 md:pb-24">
       <div
-        className="absolute inset-0 bg-fixed bg-[length:auto_100%] bg-center bg-no-repeat"
+        className="absolute inset-0 bg-fixed bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${ASSETS.heroImg})` }}
       />
       <div className="absolute inset-0 bg-black/10" />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
 
       <div className="relative z-10 text-center px-6 md:px-24 w-full">
-        <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-display mb-4 leading-none tracking-[0.1em] md:tracking-[0.15em] font-light uppercase whitespace-nowrap opacity-0 animate-[fadeIn_1.5s_ease-out_forwards]">
-          {t.title}
-        </h1>
-        <p className="text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] md:tracking-[0.5em] font-subtitle text-[#c5a059] mb-8 md:mb-12 opacity-0 animate-[fadeIn_1.5s_ease-out_0.5s_forwards]">
+        <p className="text-[11px] sm:text-sm md:text-base uppercase tracking-[0.4em] md:tracking-[0.5em] font-subtitle text-[#c5a059] mb-8 md:mb-12 opacity-0 animate-[fadeIn_1.5s_ease-out_0.5s_forwards]">
           {t.subtitle}
         </p>
         <div className="flex flex-row flex-wrap items-center justify-center gap-5 opacity-0 animate-[fadeIn_1.5s_ease-out_1s_forwards]">
           <a
             href="#services"
-            className="px-10 py-4 bg-[#c5a059] text-black text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white transition-all"
+            className="px-10 py-4 bg-[#c5a059] text-black text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white transition-all"
           >
             {t.ctaBooking}
           </a>
           <a
             href="#bio"
-            className="px-10 py-4 border border-white/20 text-white text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white/10 transition-all"
+            className="px-10 py-4 border border-white/20 text-white text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white/10 transition-all"
           >
             {t.cta}
           </a>
@@ -251,9 +248,9 @@ const Biography = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (
       {/* Main Bio */}
       <div className="max-w-6xl mx-auto grid lg:grid-cols-5 gap-16 lg:gap-20 items-stretch mb-20 md:mb-28">
         <div className="lg:col-span-3">
-          <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{t.sectionLabel}</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{t.sectionLabel}</span>
           <h2 className="text-4xl md:text-5xl font-display font-light mb-4">{t.title}</h2>
-          <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-10 font-subtitle italic">{t.stageName}</p>
+          <p className="text-[11px] uppercase tracking-[0.3em] text-gray-500 mb-10 font-subtitle italic">{t.stageName}</p>
           <div className="space-y-6 text-gray-400 leading-relaxed font-light text-base md:text-lg bio-text">
             {t.summary.split('\n\n').map((para, i) => (
               <p key={i} dangerouslySetInnerHTML={{ __html: para }} />
@@ -274,7 +271,7 @@ const Biography = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (
               <svg className="w-10 h-10 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
             <div className="absolute -bottom-8 -right-8 bg-[#c5a059] text-black px-6 py-3 hidden md:block">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] font-subtitle">{t.badge}</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] font-subtitle">{t.badge}</span>
             </div>
           </div>
         </div>
@@ -325,13 +322,13 @@ const Biography = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (
 
 const Services = ({ lang }: { lang: Language }) => {
   const t = translations[lang].services;
-  const categoryKeys = ['heritage', 'goldenCeremony', 'hospitality', 'composition', 'emeraldSensory', 'privateResonance'] as const;
+  const categoryKeys = ['privateResonance', 'goldenCeremony', 'emeraldSensory', 'heritage', 'hospitality', 'composition'] as const;
 
   return (
     <section id="services" className="py-24 md:py-32 px-6 md:px-24 bg-white text-black">
       <div className="max-w-6xl mx-auto">
         <div className="mb-20">
-          <span className="text-[11px] font-extrabold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{t.sectionLabel}</span>
+          <span className="text-[12px] font-extrabold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{t.sectionLabel}</span>
           <h2 className="text-4xl md:text-5xl font-display font-light mb-6 text-left">{t.title}</h2>
           <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-2xl font-light text-left">
             {t.intro}
@@ -347,11 +344,11 @@ const Services = ({ lang }: { lang: Language }) => {
                   <span className="w-6 h-px bg-[#c5a059] mr-3 group-hover:w-8 transition-all duration-300 flex-shrink-0  translate-y-[-.33em]" />
                   {cat.title}
                 </h3>
-                <p className="text-[10px] uppercase tracking-widest text-[#c5a059] font-bold mb-4 font-subtitle pl-9 group-hover:pl-[44px] transition-all duration-300">
+                <p className="text-[11px] uppercase tracking-widest text-[#c5a059] font-bold mb-4 font-subtitle pl-9 group-hover:pl-[44px] transition-all duration-300">
                   {cat.subtitle}
                 </p>
                 <p className="text-gray-500 font-light leading-relaxed text-sm mb-6">{cat.desc}</p>
-                <a href="#contact" className="text-[10px] font-bold uppercase tracking-widest text-[#c5a059] hover:text-black transition-colors">{t.cta}</a>
+                <a href="#contact" className="text-[11px] font-bold uppercase tracking-widest text-[#c5a059] hover:text-black transition-colors">{t.cta}</a>
               </div>
             );
           })}
@@ -425,7 +422,7 @@ const Reviews = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (ur
       <div className="max-w-7xl mx-auto px-6 md:px-24">
         <div className="flex items-end justify-between mb-12">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{t.sectionLabel}</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{t.sectionLabel}</span>
             <h2 className="text-4xl md:text-5xl font-display font-light">{t.title}</h2>
           </div>
           <div className="flex items-center space-x-3">
@@ -486,7 +483,7 @@ const Reviews = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (ur
                   </div>
                   <div className="min-w-0">
                     <h3 className="text-sm font-display font-light text-white leading-tight line-clamp-2">{item.title}</h3>
-                    <span className="text-[9px] uppercase tracking-widest text-[#c5a059]/80 font-bold block mt-1">{review.date}</span>
+                    <span className="text-[10px] uppercase tracking-widest text-[#c5a059]/80 font-bold block mt-1">{review.date}</span>
                   </div>
                 </div>
 
@@ -496,7 +493,7 @@ const Reviews = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (ur
                     {item.quote && (
                       <blockquote className="border-l border-[#c5a059]/30 pl-3 mt-3 italic text-gray-300 text-[11px] leading-relaxed">
                         <p>{item.quote}</p>
-                        <cite className="text-[9px] text-[#c5a059]/60 tracking-wide not-italic block mt-1">— {item.quoteAuthor}</cite>
+                        <cite className="text-[10px] text-[#c5a059]/60 tracking-wide not-italic block mt-1">— {item.quoteAuthor}</cite>
                       </blockquote>
                     )}
                     <div className="pb-2"></div>
@@ -507,14 +504,14 @@ const Reviews = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (ur
                 <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
                   {review.youtubeUrl && item.watch && (
                     <a href={review.youtubeUrl} target="_blank" rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-1.5 bg-red-600/10 border border-red-600/20 rounded-full text-red-500 text-[9px] font-bold uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all">
+                      className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-1.5 bg-red-600/10 border border-red-600/20 rounded-full text-red-500 text-[10px] font-bold uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all">
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                       {item.watch}
                     </a>
                   )}
                   {review.sourceUrl && item.source && (
                     <a href={review.sourceUrl} target="_blank" rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-gray-400 text-[9px] font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all">
+                      className="flex-1 inline-flex items-center justify-center px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-gray-400 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all">
                       {item.source}
                     </a>
                   )}
@@ -624,7 +621,7 @@ const Discography = ({ lang }: { lang: Language }) => {
         <div className="max-w-7xl mx-auto px-6 md:px-24">
           <div className="flex items-end justify-between mb-16 md:mb-20">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{lang === Language.ES ? 'Catálogo' : 'Catalog'}</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{lang === Language.ES ? 'Catálogo' : 'Catalog'}</span>
               <h2 className="text-4xl md:text-5xl font-display font-light text-black">{t.title}</h2>
             </div>
             {isScrollable && (
@@ -670,7 +667,7 @@ const Discography = ({ lang }: { lang: Language }) => {
                   className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-1000"
                 />
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-[12px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center border border-white/10">
-                  <span className="text-[10px] font-bold text-[#c5a059] uppercase tracking-[0.4em] mb-8">{t.available}</span>
+                  <span className="text-[11px] font-bold text-[#c5a059] uppercase tracking-[0.4em] mb-8">{t.available}</span>
                   <div className="grid grid-cols-3 gap-5">
                     {Object.entries(album.links).map(([platform, url]) => (
                       <a
@@ -683,7 +680,7 @@ const Discography = ({ lang }: { lang: Language }) => {
                         <div className="p-3 rounded-full bg-white/5 border border-white/10 group-hover/icon:bg-[#c5a059] group-hover/icon:text-black group-hover/icon:border-[#c5a059] transition-all">
                           {(PlatformIcons as any)[platform] ? (PlatformIcons as any)[platform]() : platform}
                         </div>
-                        <span className="text-[7px] uppercase tracking-[0.2em] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-[#c5a059]">
+                        <span className="text-[8px] uppercase tracking-[0.2em] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-[#c5a059]">
                           {platform === 'youtubeMusic' ? 'YT Music' : platform}
                         </span>
                       </a>
@@ -692,7 +689,7 @@ const Discography = ({ lang }: { lang: Language }) => {
                 </div>
               </div>
               <h3 className="text-xl font-display font-light mb-2 text-black">{album.title}</h3>
-              <p className="text-[10px] text-[#c5a059] font-bold uppercase tracking-widest">{album.artist}</p>
+              <p className="text-[11px] text-[#c5a059] font-bold uppercase tracking-widest">{album.artist}</p>
             </div>
           ))}
         </div>
@@ -769,7 +766,7 @@ const PrivateArea = ({ lang, onClose }: { lang: Language, onClose: () => void })
         </button>
 
         <h3 className="text-2xl font-display font-light text-[#c5a059] mb-2">{t.title}</h3>
-        <p className="text-gray-500 uppercase tracking-widest text-[10px] mb-8">{t.locked}</p>
+        <p className="text-gray-500 uppercase tracking-widest text-[11px] mb-8">{t.locked}</p>
 
         {!isUnlocked ? (
           <form onSubmit={handleUnlock} className="space-y-4">
@@ -782,7 +779,7 @@ const PrivateArea = ({ lang, onClose }: { lang: Language, onClose: () => void })
             />
             <button
               type="submit"
-              className="w-full bg-[#c5a059] text-black font-bold uppercase tracking-widest text-[10px] py-4 rounded hover:bg-white transition-all"
+              className="w-full bg-[#c5a059] text-black font-bold uppercase tracking-widest text-[11px] py-4 rounded hover:bg-white transition-all"
             >
               {t.btn}
             </button>
@@ -790,13 +787,13 @@ const PrivateArea = ({ lang, onClose }: { lang: Language, onClose: () => void })
           </form>
         ) : (
           <div className="w-full animate-fade-in">
-            <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#c5a059] mb-4 text-center">{t.downloadLabel}</h4>
+            <h4 className="text-[11px] uppercase tracking-[0.2em] font-bold text-[#c5a059] mb-4 text-center">{t.downloadLabel}</h4>
             <div className="flex flex-col gap-2">
-              <a href="/material-publicitario/material-grafico.zip" download className="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[9px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+              <a href="/material-publicitario/material-grafico.zip" download className="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[10px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
                 {t.downloadGraphic}
                 <svg className="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </a>
-              <a href="/material-publicitario/fuentes-tipograficas.zip" download className="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[9px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+              <a href="/material-publicitario/fuentes-tipograficas.zip" download className="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[10px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
                 {t.downloadFonts}
                 <svg className="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </a>
