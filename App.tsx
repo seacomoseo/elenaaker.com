@@ -4,6 +4,16 @@ import { Language } from './types';
 import { translations } from './translations';
 import { ASSETS, ALBUMS, REVIEWS, CONTACT_INFO } from './constants';
 
+const trackContactEvent = (id: string, label: string, type: string) => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', 'contact', {
+      event_id: id,
+      event_label: label,
+      contact_type: type
+    });
+  }
+};
+
 // --- SVG Icons ---
 
 const FlagES = () => (
@@ -190,6 +200,7 @@ const Hero = ({ lang }: { lang: Language }) => {
         <div className="flex flex-row flex-wrap items-center justify-center gap-5 opacity-0 animate-[fadeIn_1.5s_ease-out_1s_forwards]">
           <a
             href="#services"
+            onClick={() => trackContactEvent('hero_booking', t.ctaBooking, 'button')}
             className="px-10 py-4 bg-[#c5a059] text-black text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white transition-all"
           >
             {t.ctaBooking}
@@ -348,7 +359,13 @@ const Services = ({ lang }: { lang: Language }) => {
                   {cat.subtitle}
                 </p>
                 <p className="text-gray-500 font-light leading-relaxed text-sm mb-6">{cat.desc}</p>
-                <a href="#contact" className="text-[11px] font-bold uppercase tracking-widest text-[#c5a059] hover:text-black transition-colors">{t.cta}</a>
+                <a 
+                  href="#contact" 
+                  onClick={() => trackContactEvent(`service_${key}`, cat.title, 'service_link')}
+                  className="text-[11px] font-bold uppercase tracking-widest text-[#c5a059] hover:text-black transition-colors"
+                >
+                  {t.cta}
+                </a>
               </div>
             );
           })}
@@ -709,13 +726,21 @@ const Contact = ({ lang }: { lang: Language }) => {
           <div className="space-y-10">
             <div>
               <p className="text-[10px] uppercase tracking-[0.4em] font-extrabold text-gray-500 mb-3">Email</p>
-              <a href={`mailto:${CONTACT_INFO.email}`} className="text-xl md:text-2xl font-light text-white hover:text-[#c5a059] transition-colors truncate block">
+              <a 
+                href={`mailto:${CONTACT_INFO.email}`} 
+                onClick={() => trackContactEvent('direct_email', CONTACT_INFO.email, 'email')}
+                className="text-xl md:text-2xl font-light text-white hover:text-[#c5a059] transition-colors truncate block"
+              >
                 {CONTACT_INFO.email}
               </a>
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-[0.4em] font-extrabold text-gray-500 mb-3">{lang === Language.ES ? 'Teléfono' : 'Phone'}</p>
-              <a href={`tel:${CONTACT_INFO.phone}`} className="text-xl md:text-2xl font-light text-white hover:text-[#c5a059] transition-colors">
+              <a 
+                href={`tel:${CONTACT_INFO.phone}`} 
+                onClick={() => trackContactEvent('direct_phone', CONTACT_INFO.phone, 'phone')}
+                className="text-xl md:text-2xl font-light text-white hover:text-[#c5a059] transition-colors"
+              >
                 {CONTACT_INFO.phone}
               </a>
             </div>
