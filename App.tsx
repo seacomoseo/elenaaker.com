@@ -6,11 +6,7 @@ import { ASSETS, ALBUMS, REVIEWS, CONTACT_INFO } from './constants';
 
 const trackContactEvent = (id: string, label: string, type: string) => {
   if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', 'contact', {
-      event_id: id,
-      event_label: label,
-      contact_type: type
-    });
+    (window as any).gtag('event', 'contact', { id, label, type });
   }
 };
 
