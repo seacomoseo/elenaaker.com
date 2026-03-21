@@ -1,4 +1,45 @@
-/* Elena Aker — Base Styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Montserrat — self-hosted (latin subset, woff2) */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-300.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 
 /* Smooth scroll */
 html {

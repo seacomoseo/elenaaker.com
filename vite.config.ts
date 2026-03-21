@@ -12,12 +12,33 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     define: {
       'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
+      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
     },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
-      }
-    }
+      },
+    },
+    build: {
+      target: 'es2020',
+      // Produce smaller chunks for better caching
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Split React into its own vendor chunk — cached indefinitely
+            react: ['react', 'react-dom'],
+          },
+        },
+      },
+      // Inline small assets instead of separate requests
+      assetsInlineLimit: 4096,
+      // Generate source maps only in dev
+      sourcemap: false,
+      // Report if any chunk is bigger than 400KB
+      chunkSizeWarningLimit: 400,
+    },
+    css: {
+      devSourcemap: true,
+    },
   };
 });

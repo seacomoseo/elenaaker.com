@@ -272,6 +272,10 @@ const Biography = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (
             <img
               src={ASSETS.photos[1].url}
               alt="Elena Aker"
+              width={600}
+              height={750}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
             />
             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -312,6 +316,8 @@ const Biography = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (
                   <img
                     src={section.photo.url}
                     alt={section.photo.alt}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-auto object-cover shadow-lg rounded-sm transition-transform duration-500 group-hover:scale-[1.03] max-h-[450px]"
                   />
                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -488,6 +494,8 @@ const Reviews = ({ lang, onOpenLightbox }: { lang: Language, onOpenLightbox: (ur
                     <img
                       src={reviewImg}
                       alt={item.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-transform group-hover/thumb:scale-110"
                     />
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity">
@@ -618,6 +626,7 @@ const Discography = ({ lang }: { lang: Language }) => {
         <video
           ref={videoRef}
           src={ASSETS.videoBg}
+          poster={ASSETS.videoPoster}
           muted
           loop
           playsInline
@@ -677,6 +686,8 @@ const Discography = ({ lang }: { lang: Language }) => {
                 <img
                   src={album.image}
                   alt={album.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-1000"
                 />
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-[12px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center border border-white/10">
@@ -747,6 +758,10 @@ const Contact = ({ lang }: { lang: Language }) => {
           <img
             src={ASSETS.bookingImg}
             alt="Elena Aker — Contratación"
+            width={600}
+            height={800}
+            loading="lazy"
+            decoding="async"
             className="w-full max-w-md rounded-lg shadow-2xl border border-white/5"
           />
         </div>
