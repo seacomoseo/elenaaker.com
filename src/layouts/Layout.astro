@@ -38,6 +38,8 @@ const canonicalUrl = site + (currentPath === '/' ? '' : currentPath);
 
 const isEn = lang === 'en';
 const langEnum = isEn ? Language.EN : Language.ES;
+const isProd = import.meta.env.PROD;
+const heroPreloadSrcSet = isProd ? '/src/fotos/7-960.jpg 960w, /src/fotos/7-1600.jpg 1600w, /src/fotos/7.jpg 1920w' : undefined;
 ---
 
 <!DOCTYPE html>
@@ -97,7 +99,7 @@ const langEnum = isEn ? Language.EN : Language.ES;
   <link rel="preload" href="/fonts/corbel-400.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- Preload hero image -->
-  <link rel="preload" href="/src/fotos/7.jpg" as="image">
+  <link rel="preload" href="/src/fotos/7.jpg" as="image" imagesrcset={heroPreloadSrcSet} imagesizes={heroPreloadSrcSet ? '100vw' : undefined} fetchpriority="high">
 </head>
 <body class="bg-[#0a0a0a] min-h-screen text-white selection:bg-[#c5a059] selection:text-black">
   <SvgDefs />

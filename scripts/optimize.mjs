@@ -1,10 +1,48 @@
 import fs from 'fs';
-import path from 'path';
 import { globSync } from 'glob';
 import sharp from 'sharp';
 
+const RESPONSIVE_VARIANTS = [
+  { source: 'dist/src/fotos/1.jpg', widths: [480, 768] },
+  { source: 'dist/src/fotos/2.jpg', widths: [480, 768] },
+  { source: 'dist/src/fotos/3.jpg', widths: [480] },
+  { source: 'dist/src/fotos/4.jpg', widths: [480, 768] },
+  { source: 'dist/src/fotos/5.jpg', widths: [480, 768] },
+  { source: 'dist/src/fotos/6.jpg', widths: [480, 768] },
+  { source: 'dist/src/fotos/7.jpg', widths: [960, 1600] },
+  { source: 'dist/src/fotos/8.jpg', widths: [480, 768] },
+  { source: 'dist/src/fotos/9.jpg', widths: [480, 768] },
+  { source: 'dist/src/fotos/10.jpg', widths: [480] },
+  { source: 'dist/src/fotos/museo-del-prado.jpg', widths: [480, 768] },
+  { source: 'dist/src/contratacion.jpg', widths: [480, 768] },
+];
+
+async function generateResponsiveVariants() {
+  for (const { source, widths } of RESPONSIVE_VARIANTS) {
+    if (!fs.existsSync(source)) continue;
+
+    const metadata = await sharp(source).metadata();
+    const originalWidth = metadata.width ?? 0;
+
+    for (const width of widths) {
+      if (width >= originalWidth) continue;
+
+      const variantPath = source.replace(/\.jpg$/, `-${width}.jpg`);
+      if (fs.existsSync(variantPath)) continue;
+
+      await sharp(source)
+        .resize({ width, withoutEnlargement: true })
+        .jpeg({ quality: 82, mozjpeg: true })
+        .toFile(variantPath);
+
+      console.log(`🖼️ Generated responsive variant: ${variantPath}`);
+    }
+  }
+}
+
 async function optimizeImages() {
   console.log('📸 Optimizing images and generating Next-Gen AVIF formats...');
+  await generateResponsiveVariants();
 
   // 1. Find all JPGs in the build output
   const images = globSync('dist/**/*.jpg');

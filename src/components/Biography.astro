@@ -8,6 +8,13 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = translations[lang].bio;
+const isProd = import.meta.env.PROD;
+const getResponsiveSrcSet = (url: string, widths: number[], originalWidth: number) =>
+  widths
+    .filter((width) => width < originalWidth)
+    .map((width) => `${url.replace(/\.jpg$/, `-${width}.jpg`)} ${width}w`)
+    .concat(`${url} ${originalWidth}w`)
+    .join(', ');
 
 const bioSections = [
   {
@@ -64,11 +71,13 @@ const bioSections = [
       >
         <img
           src={ASSETS.photos[1].url}
+          srcset={isProd ? getResponsiveSrcSet(ASSETS.photos[1].url, [480, 768], ASSETS.photos[1].width) : undefined}
           alt="Elena Aker"
           width={600}
           height={750}
           loading="lazy"
           decoding="async"
+          sizes={isProd ? "(min-width: 1024px) 34vw, 92vw" : undefined}
           class="w-full h-full object-cover shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
         />
         <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -108,11 +117,13 @@ const bioSections = [
             >
               <img
                 src={section.photo.url}
+                srcset={isProd ? getResponsiveSrcSet(section.photo.url, [480, 768], section.photo.width) : undefined}
                 alt={section.photo.alt}
                 width={section.photo.width}
                 height={section.photo.height}
                 loading="lazy"
                 decoding="async"
+                sizes={isProd ? "(min-width: 1024px) 24rem, (min-width: 768px) 16rem, 100vw" : undefined}
                 class="w-full h-auto max-h-[450px] object-cover shadow-lg rounded-sm transition-transform duration-500 group-hover:scale-[1.03]"
               />
               <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

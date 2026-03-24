@@ -3,14 +3,16 @@ import { translations, Language } from '../translations';
 import { ASSETS } from '../constants';
 const { lang } = Astro.props as { lang: Language };
 const t = translations[lang].hero;
+const heroSrcSet = import.meta.env.PROD ? '/src/fotos/7-960.jpg 960w, /src/fotos/7-1600.jpg 1600w, /src/fotos/7.jpg 1920w' : undefined;
 ---
 <section id="home" class="relative h-screen bg-black flex flex-col justify-end overflow-hidden pb-16 md:pb-24">
   <img 
     src={ASSETS.heroImg} 
+    srcset={heroSrcSet}
     alt="Elena Aker" 
     fetchpriority="high" 
     loading="eager"
-    decoding="sync"
+    decoding="async"
     sizes="100vw"
     width="1920"
     height="1280"

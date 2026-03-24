@@ -37,7 +37,7 @@ const PlatformIcons = {
     <div class="max-w-7xl mx-auto px-6 md:px-24">
       <div class="flex items-end justify-between mb-16 md:mb-20">
         <div>
-          <span class="text-[11px] uppercase tracking-[0.4em] text-[#8e7037] mb-4 block">{lang === Language.ES ? 'Catálogo' : 'Catalog'}</span>
+          <span class="text-[11px] uppercase tracking-[0.4em] text-[#6f5524] mb-4 block">{lang === Language.ES ? 'Catálogo' : 'Catalog'}</span>
           <h2 class="text-4xl md:text-5xl font-display font-light text-black">{t.title}</h2>
         </div>
         <div id="albums-controls" class="items-center space-x-3" style="display: none;">
@@ -103,7 +103,7 @@ const PlatformIcons = {
             </div>
           </div>
           <h3 class="text-xl font-display mb-2 text-black">{album.title}</h3>
-          <p class="text-[11px] text-[#8e7037] uppercase tracking-widest">{album.artist}</p>
+          <p class="text-[11px] text-[#6f5524] uppercase tracking-widest">{album.artist}</p>
         </div>
       ))}
     </div>
@@ -251,8 +251,6 @@ const PlatformIcons = {
     canAutoScroll = true;
     updateAutoScroll();
   });
-  albumScroll?.addEventListener('scroll', updateScrollableState, { passive: true });
-
   interactiveElements.forEach((element) => {
     element.addEventListener('focus', updateAutoScroll, true);
     element.addEventListener('blur', () => {
