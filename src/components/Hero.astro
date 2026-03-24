@@ -3,7 +3,7 @@ import { translations, Language } from '../translations';
 import { ASSETS } from '../constants';
 const { lang } = Astro.props as { lang: Language };
 const t = translations[lang].hero;
-const heroSrcSet = import.meta.env.PROD ? '/src/fotos/7-960.jpg 960w, /src/fotos/7-1600.jpg 1600w, /src/fotos/7.jpg 1920w' : undefined;
+const heroSrcSet = import.meta.env.PROD ? '/src/fotos/7-960.jpg 960w, /src/fotos/7.jpg 1376w' : undefined;
 ---
 <section id="home" class="relative h-screen bg-black flex flex-col justify-end overflow-hidden pb-16 md:pb-24">
   <img 
@@ -14,8 +14,8 @@ const heroSrcSet = import.meta.env.PROD ? '/src/fotos/7-960.jpg 960w, /src/fotos
     loading="eager"
     decoding="async"
     sizes="100vw"
-    width="1920"
-    height="1280"
+    width="1376"
+    height="1450"
     class="absolute inset-0 w-full h-full object-cover object-center" 
   />
   <div class="absolute inset-0 bg-black/10"></div>

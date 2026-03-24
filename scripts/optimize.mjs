@@ -9,7 +9,7 @@ const RESPONSIVE_VARIANTS = [
   { source: 'dist/src/fotos/4.jpg', widths: [480, 768] },
   { source: 'dist/src/fotos/5.jpg', widths: [480, 768] },
   { source: 'dist/src/fotos/6.jpg', widths: [480, 768] },
-  { source: 'dist/src/fotos/7.jpg', widths: [960, 1600] },
+  { source: 'dist/src/fotos/7.jpg', widths: [960] },
   { source: 'dist/src/fotos/8.jpg', widths: [480, 768] },
   { source: 'dist/src/fotos/9.jpg', widths: [480, 768] },
   { source: 'dist/src/fotos/10.jpg', widths: [480] },
