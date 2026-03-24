@@ -51,12 +51,13 @@ const t = translations[lang].reviews;
         >
           <div class="p-6 flex flex-col flex-1">
             <div class="flex items-center gap-4 mb-4">
-              <div 
+              <button 
                 class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 border border-[#c5a059]/40 bg-black cursor-pointer group/thumb relative"
                 data-lightbox={reviewImg}
                 data-lightbox-alt={item.title}
                 data-youtube={review.youtubeUrl}
                 data-source={review.sourceUrl}
+                aria-label={`Show review media for ${item.title}`}
               >
                 <img
                   src={reviewImg}
@@ -70,7 +71,7 @@ const t = translations[lang].reviews;
                 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity">
                   <svg class="w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-width="2"/></svg>
                 </div>
-              </div>
+              </button>
               <div class="min-w-0">
                 <h3 class="text-sm font-display font-light text-white leading-tight line-clamp-2">{item.title}</h3>
                 <span class="text-[10px] uppercase tracking-widest text-[#c5a059]/80 font-bold block mt-1">{review.date}</span>
