@@ -71,13 +71,13 @@ const bioSections = [
       >
         <img
           src={ASSETS.photos[1].url}
-          srcset={isProd ? getResponsiveSrcSet(ASSETS.photos[1].url, [400, 560, 720, 960], ASSETS.photos[1].width) : undefined}
+          srcset={isProd ? getResponsiveSrcSet(ASSETS.photos[1].url, [360, 440, 520, 640, 800], ASSETS.photos[1].width) : undefined}
           alt="Elena Aker"
           width={600}
           height={750}
           loading="lazy"
           decoding="async"
-          sizes={isProd ? "(min-width: 1024px) 34vw, (min-width: 768px) 38vw, calc(100vw - 4.5rem)" : undefined}
+          sizes={isProd ? "(min-width: 1280px) 23rem, (min-width: 1024px) 21rem, (min-width: 768px) 38vw, calc(100vw - 5rem)" : undefined}
           class="w-full h-full object-cover shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
         />
         <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

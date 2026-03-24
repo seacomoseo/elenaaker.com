@@ -12,12 +12,14 @@ const bookingSrcSet = import.meta.env.PROD ? '/src/contratacion-480.jpg 480w, /s
       <div class="space-y-10">
         <div>
           <p class="text-[10px] uppercase tracking-[0.4em] font-extrabold text-gray-400 mb-3">Email</p>
+          <!--email_off-->
           <a 
             href={`mailto:${CONTACT_INFO.email}`} 
             class="text-xl md:text-2xl font-light text-white hover:text-[#c5a059] transition-colors truncate block"
           >
             {CONTACT_INFO.email}
           </a>
+          <!--/email_off-->
         </div>
         <div>
           <p class="text-[10px] uppercase tracking-[0.4em] font-extrabold text-gray-400 mb-3">{lang === Language.ES ? 'Teléfono' : 'Phone'}</p>
