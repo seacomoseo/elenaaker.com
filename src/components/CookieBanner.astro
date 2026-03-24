@@ -53,15 +53,17 @@ const t = {
   const acceptBtn = document.getElementById('cookie-accept');
   const declineBtn = document.getElementById('cookie-decline');
   const consentKey = 'cookieConsent';
+  const gaMeasurementId = 'G-DCQJWMM25F';
   let analyticsLoaded = false;
 
   function loadGA4() {
     if (analyticsLoaded || document.getElementById('ga4-script')) return;
+    window[`ga-disable-${gaMeasurementId}`] = false;
 
     const script1 = document.createElement('script');
     script1.id = 'ga4-script';
     script1.async = true;
-    script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-DCQJWMM25F';
+    script1.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`;
     document.head.appendChild(script1);
 
     const script2 = document.createElement('script');
@@ -69,17 +71,35 @@ const t = {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-DCQJWMM25F');
+      gtag('config', '${gaMeasurementId}');
     `;
     document.head.appendChild(script2);
     analyticsLoaded = true;
   }
 
+  function disableGA4() {
+    window[`ga-disable-${gaMeasurementId}`] = true;
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+      });
+    }
+
+    document.cookie = `_ga=; Max-Age=0; path=/; domain=${location.hostname}`;
+    document.cookie = `_ga_${gaMeasurementId.replace(/-/g, '')}=; Max-Age=0; path=/; domain=${location.hostname}`;
+  }
+
   function init() {
     const consent = localStorage.getItem(consentKey);
 
-    if (consent === 'accepted') {
+    if (consent !== 'declined') {
       loadGA4();
+    } else {
+      disableGA4();
     }
 
     if (!consent) {
@@ -96,6 +116,7 @@ const t = {
   declineBtn?.addEventListener('click', () => {
     localStorage.setItem(consentKey, 'declined');
     banner?.classList.add('hidden');
+    disableGA4();
   });
 
   // Run on load

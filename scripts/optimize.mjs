@@ -4,7 +4,7 @@ import sharp from 'sharp'
 
 const RESPONSIVE_VARIANTS = [
   { source: 'dist/src/fotos/1.jpg', widths: [480, 768] },
-  { source: 'dist/src/fotos/2.jpg', widths: [480, 768] },
+  { source: 'dist/src/fotos/2.jpg', widths: [480, 640, 768] },
   { source: 'dist/src/fotos/3.jpg', widths: [480] },
   { source: 'dist/src/fotos/4.jpg', widths: [480, 768] },
   { source: 'dist/src/fotos/5.jpg', widths: [480, 768] },
