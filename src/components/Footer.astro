@@ -5,16 +5,16 @@ const { lang } = Astro.props as { lang: Language };
 const ft = translations[lang].footer;
 ---
 <footer class="pt-16 pb-28 md:pt-20 md:pb-36 bg-black text-center border-t border-white/5">
-  <div class="text-[13px] md:text-[15px] font-display font-light uppercase tracking-[0.8em] md:tracking-[1em] text-gray-500 mb-6">ELENA AKER</div>
+  <div class="text-[13px] md:text-[15px] font-display font-light uppercase tracking-[0.8em] md:tracking-[1em] text-gray-400 mb-6">ELENA AKER</div>
   <div class="mb-6">
     <PrivateArea lang={lang} />
   </div>
-  <div class="mb-8 flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-8 text-[11px] text-gray-500 font-subtitle uppercase tracking-[0.1em]">
+  <div class="mb-8 flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-8 text-[11px] text-gray-400 font-subtitle uppercase tracking-[0.1em]">
     <a href={lang === Language.EN ? "/en/legal-notice" : "/aviso-legal"} class="hover:text-[#c5a059] transition-colors">{lang === Language.EN ? "Legal Notice" : "Aviso Legal"}</a>
     <a href={lang === Language.EN ? "/en/privacy-policy" : "/politica-privacidad"} class="hover:text-[#c5a059] transition-colors">{lang === Language.EN ? "Privacy Policy" : "Política de Privacidad"}</a>
     <a href={lang === Language.EN ? "/en/cookies-policy" : "/politica-cookies"} class="hover:text-[#c5a059] transition-colors">{lang === Language.EN ? "Cookies Policy" : "Política de Cookies"}</a>
   </div>
-  <div class="text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-gray-600">
+  <div class="text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-gray-500">
     &copy; {new Date().getFullYear()} elenaaker.com &middot; {ft.rights}
   </div>
 </footer>

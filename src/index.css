@@ -4,49 +4,49 @@
 
 @font-face {
   font-family: 'Giga Sans';
-  src: url('/fonts/giga-sans-300.ttf') format('truetype');
+  src: url('/fonts/giga-sans-300.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Giga Sans';
-  src: url('/fonts/giga-sans-400.ttf') format('truetype');
+  src: url('/fonts/giga-sans-400.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Giga Sans';
-  src: url('/fonts/giga-sans-500.ttf') format('truetype');
+  src: url('/fonts/giga-sans-500.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Giga Sans';
-  src: url('/fonts/giga-sans-600.ttf') format('truetype');
+  src: url('/fonts/giga-sans-600.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Giga Sans';
-  src: url('/fonts/giga-sans-700.ttf') format('truetype');
+  src: url('/fonts/giga-sans-700.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Corbel';
-  src: url('/fonts/corbel-400.ttf') format('truetype');
+  src: url('/fonts/corbel-400.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Corbel';
-  src: url('/fonts/corbel-700.ttf') format('truetype');
+  src: url('/fonts/corbel-700.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;

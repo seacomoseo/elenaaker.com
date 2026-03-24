@@ -19,17 +19,15 @@ const PlatformIcons = {
 };
 ---
 
-<div class="w-full relative flex items-center justify-center bg-black">
-  <video
-    id="bg-video"
-    src={ASSETS.videoBg}
-    poster={ASSETS.videoPoster}
-    muted
-    loop
-    playsinline
-    preload="none"
-    class="w-full h-auto object-cover"
-  ></video>
+<div id="video-container" class="w-full relative flex items-center justify-center bg-black md:min-h-[500px]">
+  <img 
+    src={ASSETS.videoPoster} 
+    alt="Elena Aker performing" 
+    width="1920" 
+    height="1080" 
+    id="video-poster"
+    class="w-full h-auto object-cover" 
+  />
   <div class="absolute top-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-b from-[#0a0a0a] to-transparent"></div>
   <div class="absolute bottom-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-t from-white to-transparent"></div>
 </div>
@@ -86,6 +84,7 @@ const PlatformIcons = {
                     href={url as string}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`Listen on ${platform}`}
                     class="flex flex-col items-center gap-2 text-white/40 hover:text-white transition-all transform hover:scale-110 group/icon"
                   >
                     <div class="p-3 rounded-full bg-white/5 border border-white/10 group-hover/icon:bg-[#c5a059] group-hover/icon:text-black group-hover/icon:border-[#c5a059] transition-all">
@@ -109,29 +108,56 @@ const PlatformIcons = {
   </div>
 </section>
 
-<script>
-  const video = document.getElementById('bg-video') as HTMLVideoElement;
+<script define:vars={{ videoSrc: ASSETS.videoBg, videoSrcMobile: ASSETS.videoBgMobile, videoPoster: ASSETS.videoPoster }}>
+  const container = document.getElementById('video-container');
+  const poster = document.getElementById('video-poster');
+  let videoInjected = false;
+
+  function injectVideo() {
+    if (videoInjected) return;
+    
+    const video = document.createElement('video');
+    video.id = 'bg-video';
+    video.src = window.innerWidth < 768 ? videoSrcMobile : videoSrc;
+    video.poster = videoPoster;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = 'none';
+    video.className = 'w-full h-auto object-cover absolute inset-0';
+    video.setAttribute('aria-label', 'Background performing video');
+    
+    container.insertBefore(video, container.firstChild);
+    poster?.classList.add('opacity-0');
+    
+    const videoObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) video.play().catch(() => {});
+      else video.pause();
+    }, { threshold: 0.1 });
+    
+    videoObserver.observe(video);
+    videoInjected = true;
+  }
+
+  window.addEventListener('scroll', injectVideo, { once: true });
+  window.addEventListener('resize', injectVideo);
+  // Use IntersectionObserver to inject video when section is near
+  const injectObserver = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) injectVideo();
+  }, { rootMargin: '200px' });
+
+  if (container) injectObserver.observe(container);
+
+  // Rest of the slider logic
   const albumScroll = document.getElementById('albums-scroll');
   const albumsControls = document.getElementById('albums-controls');
   const prevBtn = document.getElementById('albums-prev');
   const nextBtn = document.getElementById('albums-next');
 
-  // Video Observer
-  const videoObserver = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      video?.play().catch(() => {});
-    } else {
-      video?.pause();
-    }
-  }, { threshold: 0.1 });
-
-  if (video) videoObserver.observe(video);
-
-  // Scroll logic
   let isAutoScrolling = true;
-  let autoScrollTimer: any;
+  let autoScrollTimer;
 
-  function scroll(direction: 'left' | 'right') {
+  function scroll(direction) {
     if (!albumScroll) return;
     const cardWidth = 360;
     const { scrollLeft, scrollWidth, clientWidth } = albumScroll;

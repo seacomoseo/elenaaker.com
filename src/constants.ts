@@ -17,6 +17,7 @@ export const ASSETS = {
   ],
   heroImg: '/src/fotos/7.jpg',
   videoBg: '/src/video-background.mp4',
+  videoBgMobile: '/src/video-background-mobile.mp4',
   videoPoster: '/src/video-background.jpg',
   audio: '/src/audio/harp-dream-solo-arpa.mp3',
   bookingImg: '/src/contratacion.jpg',

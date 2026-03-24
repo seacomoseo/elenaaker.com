@@ -45,7 +45,7 @@ const getOtherLangHref = () => {
         <a
           href={href}
           data-section={s.id}
-          class="nav-link text-gray-400 hover:text-[#c5a059] transition-colors"
+          class="nav-link text-gray-300 hover:text-[#c5a059] transition-colors"
         >
           {s.label}
         </a>
@@ -73,7 +73,7 @@ const getOtherLangHref = () => {
           <rect y="3.5" width="20" height="7" fill="#FFC400"/>
         </svg>
       )}
-      <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden sm:inline">
+      <span class="text-[10px] font-bold uppercase tracking-widest text-gray-300 hidden sm:inline">
         {lang === Language.ES ? 'EN' : 'ES'}
       </span>
     </a>
@@ -97,7 +97,7 @@ const getOtherLangHref = () => {
           <a
             href={href}
             data-section={s.id}
-            class="mobile-nav-link text-[12px] font-semibold uppercase tracking-[0.2em] py-2 text-gray-400 hover:text-[#c5a059] transition-colors"
+            class="mobile-nav-link text-[12px] font-semibold uppercase tracking-[0.2em] py-2 text-gray-300 hover:text-[#c5a059] transition-colors"
           >
             {s.label}
           </a>
@@ -162,10 +162,10 @@ const getOtherLangHref = () => {
     navLinks.forEach(link => {
       const sectionId = link.getAttribute('data-section');
       if (sectionId === currentSection) {
-        link.classList.remove('text-gray-400');
+        link.classList.remove('text-gray-300');
         link.classList.add('text-[#c5a059]');
       } else {
-        link.classList.add('text-gray-400');
+        link.classList.add('text-gray-300');
         link.classList.remove('text-[#c5a059]');
       }
     });
