@@ -127,6 +127,14 @@ const PlatformIcons = {
   let canAutoScroll = true;
   let inViewport = false;
   let isScrollable = false;
+  let horizontalPadding = 0;
+  let scrollStateFrame = 0;
+
+  function updateHorizontalPadding() {
+    if (!albumScroll) return;
+    const styles = window.getComputedStyle(albumScroll);
+    horizontalPadding = parseFloat(styles.paddingLeft || '0') + parseFloat(styles.paddingRight || '0');
+  }
 
   function injectVideo() {
     if (!container || videoInjected) return;
@@ -197,16 +205,21 @@ const PlatformIcons = {
 
   function updateScrollableState() {
     if (!albumScroll || !albumsControls) return;
-    const styles = window.getComputedStyle(albumScroll);
-    const paddingLeft = parseFloat(styles.paddingLeft || '0');
-    const paddingRight = parseFloat(styles.paddingRight || '0');
-    const contentWidth = albumScroll.scrollWidth - paddingLeft - paddingRight;
+    const contentWidth = albumScroll.scrollWidth - horizontalPadding;
 
     isScrollable = contentWidth - albumScroll.clientWidth > 8;
     albumsControls.style.display = isScrollable ? 'flex' : 'none';
     prevBtn?.toggleAttribute('disabled', !isScrollable);
     nextBtn?.toggleAttribute('disabled', !isScrollable);
     updateAutoScroll();
+  }
+
+  function scheduleScrollableStateUpdate() {
+    if (scrollStateFrame) window.cancelAnimationFrame(scrollStateFrame);
+    scrollStateFrame = window.requestAnimationFrame(() => {
+      scrollStateFrame = 0;
+      updateScrollableState();
+    });
   }
 
   function stopAutoScroll() {
@@ -263,25 +276,32 @@ const PlatformIcons = {
   const scrollObserver = new IntersectionObserver(([entry]) => {
     inViewport = entry.isIntersecting;
     if (entry.isIntersecting) {
-      requestAnimationFrame(() => {
-        updateScrollableState();
-        requestAnimationFrame(updateScrollableState);
-      });
+      scheduleScrollableStateUpdate();
     }
     updateAutoScroll();
   }, { threshold: 0.1 });
 
   if (albumScroll) scrollObserver.observe(albumScroll);
-  window.addEventListener('resize', updateScrollableState);
-  window.addEventListener('load', updateScrollableState);
-  window.setTimeout(updateScrollableState, 0);
-  window.setTimeout(updateScrollableState, 250);
-  window.setTimeout(updateScrollableState, 750);
+  updateHorizontalPadding();
+  window.addEventListener('resize', () => {
+    updateHorizontalPadding();
+    scheduleScrollableStateUpdate();
+  });
+  window.addEventListener('load', () => {
+    updateHorizontalPadding();
+    scheduleScrollableStateUpdate();
+  });
+  window.setTimeout(scheduleScrollableStateUpdate, 0);
+  window.setTimeout(scheduleScrollableStateUpdate, 250);
+  window.setTimeout(scheduleScrollableStateUpdate, 750);
 
   if ('ResizeObserver' in window && albumScroll) {
-    const resizeObserver = new ResizeObserver(() => updateScrollableState());
+    const resizeObserver = new ResizeObserver(() => {
+      updateHorizontalPadding();
+      scheduleScrollableStateUpdate();
+    });
     resizeObserver.observe(albumScroll);
   }
 
-  updateScrollableState();
+  scheduleScrollableStateUpdate();
 </script>
