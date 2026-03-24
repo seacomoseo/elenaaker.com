@@ -1,0 +1,143 @@
+---
+import { translations, Language } from '../translations';
+import { CONTACT_INFO } from '../constants';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = translations[lang].privateArea;
+const ft = translations[lang].footer;
+---
+
+<button
+  id="private-area-trigger"
+  class="text-[11px] md:text-[13px] uppercase tracking-[0.2em] text-[#c5a059] hover:text-white transition-colors font-bold"
+>
+  {ft.privateArea}
+</button>
+
+<div id="private-area-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 hidden animate-fade-in">
+  <div
+    class="bg-[#111] border border-white/10 rounded max-w-lg w-[90vw] p-8 md:p-12 relative animate-[scaleIn_0.3s_ease-out]"
+  >
+    <button
+      id="private-area-close"
+      class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+      aria-label="Close"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+
+    <h3 class="text-2xl font-display font-light text-[#c5a059] mb-2">{t.title}</h3>
+    <p class="text-gray-500 uppercase tracking-widest text-[11px] mb-8">{t.locked}</p>
+
+    <div id="unlock-form-container">
+      <form id="unlock-form" class="space-y-4">
+        <input
+          id="access-key"
+          type="password"
+          placeholder={t.placeholder}
+          class="w-full bg-black border border-white/10 px-6 py-4 rounded text-white text-center focus:border-[#c5a059] outline-none transition-all"
+          required
+        />
+        <button
+          type="submit"
+          class="w-full bg-[#c5a059] text-black font-bold uppercase tracking-widest text-[11px] py-4 rounded hover:bg-white transition-all"
+        >
+          {t.btn}
+        </button>
+        <p id="unlock-error" class="text-red-500 text-[10px] text-center uppercase tracking-widest hidden">{t.error}</p>
+      </form>
+    </div>
+
+    <div id="download-links" class="w-full animate-fade-in hidden">
+      <h4 class="text-[11px] uppercase tracking-[0.2em] font-bold text-[#c5a059] mb-4 text-center">{t.downloadLabel}</h4>
+      <div class="flex flex-col gap-2">
+        <a href="/material-publicitario/material-grafico.zip" download class="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[10px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+          {t.downloadGraphic}
+          <svg class="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="/material-publicitario/fuentes-tipograficas.zip" download class="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[10px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+          {t.downloadFonts}
+          <svg class="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="/material-publicitario/videos-contrataciones/teatro-real-de-madrid.mp4" download class="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[9px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+          {t.downloadVideoTeatro}
+          <svg class="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="/material-publicitario/videos-contrataciones/museo-del-prado.mp4" download class="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[9px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+          {t.downloadVideoPrado}
+          <svg class="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="/material-publicitario/videos-contrataciones/ruinas-romanas.mp4" download class="inline-flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border border-white/5 text-gray-300 font-bold uppercase tracking-wider text-[9px] rounded hover:bg-[#c5a059] hover:text-black hover:border-[#c5a059] transition-all group">
+          {t.downloadVideoRomanas}
+          <svg class="w-4 h-4 text-[#c5a059] group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+</style>
+
+<script>
+  // Access key from constants (inlined in build by Astro if used in script, 
+  // but better to fetch it or pass it if dynamic. Here it's static in constants.ts)
+  // Since we don't want to import TS in client scripts easily without complex setup, 
+  // we'll pass it via a data attribute or just import it if it's small.
+  
+  import { CONTACT_INFO } from '../constants';
+
+  const modal = document.getElementById('private-area-modal');
+  const trigger = document.getElementById('private-area-trigger');
+  const closeBtn = document.getElementById('private-area-close');
+  const form = document.getElementById('unlock-form') as HTMLFormElement;
+  const input = document.getElementById('access-key') as HTMLInputElement;
+  const errorMsg = document.getElementById('unlock-error');
+  const formContainer = document.getElementById('unlock-form-container');
+  const downloadLinks = document.getElementById('download-links');
+
+  function openModal() {
+    modal?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal?.classList.add('hidden');
+    document.body.style.overflow = '';
+    // Reset state
+    input.value = '';
+    errorMsg?.classList.add('hidden');
+    formContainer?.classList.remove('hidden');
+    downloadLinks?.classList.add('hidden');
+  }
+
+  trigger?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (input.value === CONTACT_INFO.accessKey) {
+      formContainer?.classList.add('hidden');
+      downloadLinks?.classList.remove('hidden');
+      errorMsg?.classList.add('hidden');
+    } else {
+      errorMsg?.classList.remove('hidden');
+      setTimeout(() => errorMsg?.classList.add('hidden'), 2000);
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>

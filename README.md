@@ -4,7 +4,7 @@ This repository is the official website for **Elena Aker**, a luxury harpist and
 
 ## Technology Stack
 - **Framework**: Astro 5.0 (Static Site Generation)
-- **UI library**: React 19
+- **UI Architecture**: Zero-JS by default (Pure Astro + Vanilla JS)
 - **Styling**: Tailwind CSS + Custom CSS (`/src/index.css`)
 - **TypeScript**: Full type safety
 

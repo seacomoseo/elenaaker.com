@@ -1,6 +1,7 @@
 # AGENTS.md
 
-This repo is an **Astro 5.0 + React 19** SSG (Static Site Generation) site for **Elena Aker**, a luxury harpist.
+This repo is an **Astro 5.0** SSG (Static Site Generation) site for **Elena Aker**, a luxury harpist.
+It is optimized for **Zero-JS by default**, using pure Astro components and minimal vanilla JS for interactivity.
 
 ## Brand & Audience
 - **Elena Aker** is the stage name for María Elena Vázquez Quesada.
@@ -18,10 +19,10 @@ This repo is an **Astro 5.0 + React 19** SSG (Static Site Generation) site for *
 - **Photography**: Color (no grayscale filters), dramatic lighting.
 
 ## Repository Architecture (Astro SSG)
-- **Configuration**: `astro.config.mjs` (Tailwind, React integrations).
+- **Configuration**: `astro.config.mjs` (Tailwind integration).
 - **Layouts**: `src/layouts/Layout.astro` (Head management, SEO, JSON-LD, Context).
 - **Pages**: `src/pages/` (Static routes: `index.astro`, `en/index.astro`, legal pages).
-- **Components**: `src/components/` (React `.tsx` and Astro `.astro` components).
+- **Components**: `src/components/` (Pure Astro `.astro` components with `<script>` for interactivity).
 - **Translations**: `src/translations.ts` (All strings for i18n, including SEO metadata).
 - **Constants**: `src/constants.tsx` (Asset paths, shared data).
 - **Public Assets**: `/public/` (Images, fonts, `_headers`, `robots.txt`, `llms.txt`).

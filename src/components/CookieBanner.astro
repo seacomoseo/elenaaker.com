@@ -1,0 +1,104 @@
+---
+import { Language } from '../translations';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+
+const t = {
+  es: {
+    text: 'Utilizamos cookies analíticas anónimas (GA4).',
+    accept: 'Aceptar',
+    decline: 'Rechazar',
+    policy: 'Política de Cookies',
+    link: '/politica-cookies'
+  },
+  en: {
+    text: 'We use anonymous analytical cookies (GA4).',
+    accept: 'Accept',
+    decline: 'Decline',
+    policy: 'Cookies Policy',
+    link: '/en/cookies-policy'
+  }
+}[lang === Language.EN ? 'en' : 'es'];
+---
+
+<div id="cookie-banner" class="fixed bottom-0 md:bottom-4 left-0 md:left-4 right-0 md:right-auto z-50 p-2 md:p-3 bg-black/95 backdrop-blur-md border-t md:border-t-0 md:border border-[#c5a059]/30 md:rounded-sm text-white shadow-2xl w-full md:w-auto flex flex-row items-center justify-between gap-3 safe-area-pb hidden transition-opacity duration-500">
+  <div class="text-[10px] font-light text-gray-300 leading-none">
+    {t.text}{' '}
+    <a href={t.link} class="text-[#c5a059] hover:underline whitespace-nowrap ml-1">
+      {t.policy}
+    </a>
+  </div>
+  <div class="flex flex-row gap-1.5 flex-shrink-0">
+    <button
+      id="cookie-decline"
+      class="px-2 py-1.5 text-[9px] uppercase tracking-widest text-gray-400 hover:text-white transition-colors leading-none"
+    >
+      {t.decline}
+    </button>
+    <button
+      id="cookie-accept"
+      class="px-3 py-1.5 text-[9px] uppercase tracking-widest text-[#0a0a0a] bg-[#c5a059] hover:bg-[#e5c079] transition-colors rounded-sm leading-none"
+    >
+      {t.accept}
+    </button>
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const declineBtn = document.getElementById('cookie-decline');
+
+  function loadGA4() {
+    if (document.getElementById('ga4-script')) return;
+
+    const script1 = document.createElement('script');
+    script1.id = 'ga4-script';
+    script1.async = true;
+    script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-DCQJWMM25F';
+    document.head.appendChild(script1);
+
+    const script2 = document.createElement('script');
+    script2.innerHTML = `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DCQJWMM25F');
+    `;
+    document.head.appendChild(script2);
+  }
+
+  function init() {
+    const consent = localStorage.getItem('cookieConsent');
+    
+    // Default-on logic (as requested)
+    if (consent !== 'declined') {
+      loadGA4();
+    }
+
+    if (!consent) {
+      if (banner) {
+        banner.classList.remove('hidden');
+        // Small delay to allow fade-in if we wanted, but hidden class is enough for now
+      }
+    }
+  }
+
+  acceptBtn?.addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'accepted');
+    banner?.classList.add('hidden');
+    loadGA4();
+  });
+
+  declineBtn?.addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'declined');
+    banner?.classList.add('hidden');
+  });
+
+  // Run on load
+  init();
+</script>

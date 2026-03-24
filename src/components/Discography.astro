@@ -1,0 +1,184 @@
+---
+import { translations, Language } from '../translations';
+import { ASSETS, ALBUMS } from '../constants';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = translations[lang].albums;
+
+const PlatformIcons = {
+  spotify: '#icon-spotify',
+  apple: '#icon-apple',
+  amazon: '#icon-amazon',
+  deezer: '#icon-deezer',
+  youtube: '#icon-yt',
+  youtubeMusic: '#icon-yt-music',
+};
+---
+
+<div class="w-full relative flex items-center justify-center bg-black">
+  <video
+    id="bg-video"
+    src={ASSETS.videoBg}
+    poster={ASSETS.videoPoster}
+    muted
+    loop
+    playsinline
+    preload="none"
+    class="w-full h-auto object-cover"
+  ></video>
+  <div class="absolute top-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-b from-[#0a0a0a] to-transparent"></div>
+  <div class="absolute bottom-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-t from-white to-transparent"></div>
+</div>
+
+<section id="albums" class="relative py-24 md:py-32 overflow-hidden bg-white">
+  <div class="relative z-10">
+    <div class="max-w-7xl mx-auto px-6 md:px-24">
+      <div class="flex items-end justify-between mb-16 md:mb-20">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{lang === Language.ES ? 'Catálogo' : 'Catalog'}</span>
+          <h2 class="text-4xl md:text-5xl font-display font-light text-black">{t.title}</h2>
+        </div>
+        <div id="albums-controls" class="flex items-center space-x-3 hidden">
+          <button
+            id="albums-prev"
+            class="w-10 h-10 rounded-full border border-[#c5a059] text-[#c5a059] flex items-center justify-center transition-all hover:bg-[#c5a059] hover:text-white"
+            aria-label="Previous album"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button
+            id="albums-next"
+            class="w-10 h-10 rounded-full border border-[#c5a059] text-[#c5a059] flex items-center justify-center transition-all hover:bg-[#c5a059] hover:text-white"
+            aria-label="Next album"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="albums-scroll"
+      class="flex overflow-x-auto gap-8 pb-10 snap-x snap-mandatory no-scrollbar scroll-smooth"
+      style="scrollbar-width: none; -ms-overflow-style: none; scroll-padding: 0 2rem; padding-left: max(1.5rem, calc((100vw - 80rem) / 2 + 6rem)); padding-right: max(1.5rem, calc((100vw - 80rem) / 2 + 6rem));"
+    >
+      {ALBUMS.map((album) => (
+        <div class="flex-shrink-0 w-[280px] sm:w-[320px] snap-center group bg-gray-50 p-6 border border-gray-200 rounded-lg hover:border-[#c5a059]/40 hover:shadow-xl transition-all">
+          <div class="relative overflow-hidden aspect-square mb-6 shadow-2xl rounded group/img">
+            <img
+              src={album.image}
+              alt={album.title}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-1000"
+            />
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-[12px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center border border-white/10">
+              <span class="text-[11px] font-bold text-[#c5a059] uppercase tracking-[0.4em] mb-8">{t.available}</span>
+              <div class="grid grid-cols-3 gap-5">
+                {Object.entries(album.links).map(([platform, url]) => (
+                  <a
+                    href={url as string}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex flex-col items-center gap-2 text-white/40 hover:text-white transition-all transform hover:scale-110 group/icon"
+                  >
+                    <div class="p-3 rounded-full bg-white/5 border border-white/10 group-hover/icon:bg-[#c5a059] group-hover/icon:text-black group-hover/icon:border-[#c5a059] transition-all">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <use href={(PlatformIcons as any)[platform]} />
+                      </svg>
+                    </div>
+                    <span class="text-[8px] uppercase tracking-[0.2em] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-[#c5a059]">
+                      {platform === 'youtubeMusic' ? 'YT Music' : platform}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          <h3 class="text-xl font-display font-light mb-2 text-black">{album.title}</h3>
+          <p class="text-[11px] text-[#c5a059] font-bold uppercase tracking-widest">{album.artist}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const video = document.getElementById('bg-video') as HTMLVideoElement;
+  const albumScroll = document.getElementById('albums-scroll');
+  const albumsControls = document.getElementById('albums-controls');
+  const prevBtn = document.getElementById('albums-prev');
+  const nextBtn = document.getElementById('albums-next');
+
+  // Video Observer
+  const videoObserver = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      video?.play().catch(() => {});
+    } else {
+      video?.pause();
+    }
+  }, { threshold: 0.1 });
+
+  if (video) videoObserver.observe(video);
+
+  // Scroll logic
+  let isAutoScrolling = true;
+  let autoScrollTimer: any;
+
+  function scroll(direction: 'left' | 'right') {
+    if (!albumScroll) return;
+    const cardWidth = 360;
+    const { scrollLeft, scrollWidth, clientWidth } = albumScroll;
+
+    if (direction === 'left') {
+      if (scrollLeft <= 40) {
+        albumScroll.scrollTo({ left: scrollWidth, behavior: 'smooth' });
+      } else {
+        albumScroll.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      }
+    } else {
+      if (scrollLeft >= scrollWidth - clientWidth - 40) {
+        albumScroll.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        albumScroll.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      }
+    }
+  }
+
+  function checkScrollable() {
+    if (albumScroll && albumScroll.scrollWidth > albumScroll.clientWidth) {
+      albumsControls?.classList.remove('hidden');
+    } else {
+      albumsControls?.classList.add('hidden');
+    }
+  }
+
+  window.addEventListener('resize', checkScrollable);
+  checkScrollable();
+
+  prevBtn?.addEventListener('click', () => { isAutoScrolling = false; scroll('left'); });
+  nextBtn?.addEventListener('click', () => { isAutoScrolling = false; scroll('right'); });
+
+  albumScroll?.addEventListener('mouseenter', () => isAutoScrolling = false);
+  albumScroll?.addEventListener('mouseleave', () => isAutoScrolling = true);
+
+  function startAutoScroll() {
+    autoScrollTimer = setInterval(() => {
+      if (isAutoScrolling) scroll('right');
+    }, 6000);
+  }
+
+  const scrollObserver = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+        if (!autoScrollTimer) startAutoScroll();
+    } else {
+        if (autoScrollTimer) { clearInterval(autoScrollTimer); autoScrollTimer = null; }
+    }
+  }, { threshold: 0.1 });
+
+  if (albumScroll) scrollObserver.observe(albumScroll);
+</script>

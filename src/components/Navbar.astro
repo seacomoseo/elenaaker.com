@@ -1,0 +1,172 @@
+---
+import { translations, Language } from '../translations';
+
+interface Props {
+  lang: Language;
+  currentPath?: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const t = translations[lang].nav;
+
+const sections = [
+  { id: 'home', label: t.home },
+  { id: 'bio', label: t.bio },
+  { id: 'services', label: t.services },
+  { id: 'reviews', label: t.reviews },
+  { id: 'albums', label: t.discography },
+  { id: 'contact', label: t.contact },
+];
+
+const p = (currentPath || '').replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const isHome = p === '/' || p === '/en' || p === '/index';
+
+const getHomeHref = () => {
+  return isHome ? '#home' : (lang === Language.EN ? '/en' : '/');
+};
+
+const getOtherLangHref = () => {
+  const esToEn: Record<string, string> = { '/aviso-legal': '/en/legal-notice', '/politica-privacidad': '/en/privacy-policy', '/politica-cookies': '/en/cookies-policy', '/': '/en' };
+  const enToEs: Record<string, string> = { '/en/legal-notice': '/aviso-legal', '/en/privacy-policy': '/politica-privacidad', '/en/cookies-policy': '/politica-cookies', '/en': '/' };
+  
+  return lang === Language.ES ? (esToEn[p] || '/en') : (enToEs[p] || '/');
+};
+---
+
+<nav id="main-nav" class="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center transition-all">
+  <a href={getHomeHref()} class="text-xl md:text-2xl tracking-[0.3em] text-[#c5a059] uppercase font-display font-light">
+    ELENA AKER
+  </a>
+
+  <div class="hidden lg:flex space-x-8 text-[11px] font-semibold uppercase tracking-[0.2em]">
+    {sections.map(s => {
+      const href = isHome ? `#${s.id}` : (lang === Language.EN ? `/en#${s.id}` : `/#${s.id}`);
+      return (
+        <a
+          href={href}
+          data-section={s.id}
+          class="nav-link text-gray-400 hover:text-[#c5a059] transition-colors"
+        >
+          {s.label}
+        </a>
+      );
+    })}
+  </div>
+
+  <div class="flex items-center space-x-4">
+    <a
+      href={getOtherLangHref()}
+      class="flex items-center space-x-2 border-l border-white/20 pl-4 hover:opacity-80 transition-opacity"
+      aria-label="Change language"
+    >
+      {lang === Language.ES ? (
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="20" height="14" rx="1" fill="#012169"/>
+          <path d="M0 0L20 14M20 0L0 14" stroke="white" stroke-width="2.5"/>
+          <path d="M0 0L20 14M20 0L0 14" stroke="#C8102E" stroke-width="1.5"/>
+          <path d="M10 0V14M0 7H20" stroke="white" stroke-width="4"/>
+          <path d="M10 0V14M0 7H20" stroke="#C8102E" stroke-width="2.5"/>
+        </svg>
+      ) : (
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="20" height="14" rx="1" fill="#C60B1E"/>
+          <rect y="3.5" width="20" height="7" fill="#FFC400"/>
+        </svg>
+      )}
+      <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden sm:inline">
+        {lang === Language.ES ? 'EN' : 'ES'}
+      </span>
+    </a>
+
+    <button
+      id="menu-toggle"
+      class="lg:hidden flex flex-col space-y-1.5 p-2"
+      aria-label="Toggle menu"
+    >
+      <span class="w-5 h-px bg-white transition-all burger-top" />
+      <span class="w-5 h-px bg-white transition-all burger-mid" />
+      <span class="w-5 h-px bg-white transition-all burger-bot" />
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="absolute top-full left-0 w-full bg-black/95 backdrop-blur-md border-b border-white/5 lg:hidden hidden animate-fade-in">
+    <div class="flex flex-col py-6 px-8 space-y-4">
+      {sections.map(s => {
+        const href = isHome ? `#${s.id}` : (lang === Language.EN ? `/en#${s.id}` : `/#${s.id}`);
+        return (
+          <a
+            href={href}
+            data-section={s.id}
+            class="mobile-nav-link text-[12px] font-semibold uppercase tracking-[0.2em] py-2 text-gray-400 hover:text-[#c5a059] transition-colors"
+          >
+            {s.label}
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</nav>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const burgerTop = document.querySelector('.burger-top');
+  const burgerMid = document.querySelector('.burger-mid');
+  const burgerBot = document.querySelector('.burger-bot');
+  const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+
+  let isMenuOpen = false;
+
+  function toggleMenu() {
+    isMenuOpen = !isMenuOpen;
+    mobileMenu?.classList.toggle('hidden', !isMenuOpen);
+    
+    if (isMenuOpen) {
+      burgerTop?.classList.add('rotate-45', 'translate-y-[3.5px]');
+      burgerMid?.classList.add('opacity-0');
+      burgerBot?.classList.add('-rotate-45', '-translate-y-[3.5px]');
+    } else {
+      burgerTop?.classList.remove('rotate-45', 'translate-y-[3.5px]');
+      burgerMid?.classList.remove('opacity-0');
+      burgerBot?.classList.remove('-rotate-45', '-translate-y-[3.5px]');
+    }
+  }
+
+  menuToggle?.addEventListener('click', toggleMenu);
+
+  // Close menu on link click
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (isMenuOpen) toggleMenu();
+    });
+  });
+
+  // Scroll Spy
+  const sections = ['home', 'bio', 'services', 'reviews', 'albums', 'contact'];
+  
+  function updateActiveSection() {
+    const scrollPos = window.scrollY + 200;
+    let currentSection = 'home';
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && scrollPos >= el.offsetTop && scrollPos < el.offsetTop + el.offsetHeight) {
+        currentSection = id;
+      }
+    });
+
+    navLinks.forEach(link => {
+      const sectionId = link.getAttribute('data-section');
+      if (sectionId === currentSection) {
+        link.classList.remove('text-gray-400');
+        link.classList.add('text-[#c5a059]');
+      } else {
+        link.classList.add('text-gray-400');
+        link.classList.remove('text-[#c5a059]');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveSection);
+  updateActiveSection();
+</script>

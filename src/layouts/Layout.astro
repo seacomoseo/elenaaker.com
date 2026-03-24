@@ -1,7 +1,7 @@
 ---
 import '../index.css';
 import SvgDefs from '../components/SvgDefs.astro';
-import CookieBanner from '../components/CookieBanner';
+import CookieBanner from '../components/CookieBanner.astro';
 import { Language } from '../translations';
 
 interface Props {
@@ -104,6 +104,6 @@ const langEnum = isEn ? Language.EN : Language.ES;
 <body class="bg-[#0a0a0a] min-h-screen text-white selection:bg-[#c5a059] selection:text-black">
   <SvgDefs />
   <slot />
-  <CookieBanner client:load lang={langEnum} />
+  <CookieBanner lang={langEnum} />
 </body>
 </html>

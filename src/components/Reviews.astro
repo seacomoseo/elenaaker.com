@@ -1,0 +1,188 @@
+---
+import { translations, Language } from '../translations';
+import { REVIEWS } from '../constants';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = translations[lang].reviews;
+---
+
+<section id="reviews" class="py-24 md:py-32 bg-[#0a0a0a] overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 md:px-24">
+    <div class="flex items-end justify-between mb-12">
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-[0.4em] text-[#c5a059] mb-4 block">{t.sectionLabel}</span>
+        <h2 class="text-4xl md:text-5xl font-display font-light">{t.title}</h2>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button
+          id="reviews-prev"
+          class="w-10 h-10 rounded-full border border-[#c5a059] text-[#c5a059] flex items-center justify-center transition-all hover:bg-[#c5a059] hover:text-black"
+          aria-label="Previous review"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button
+          id="reviews-next"
+          class="w-10 h-10 rounded-full border border-[#c5a059] text-[#c5a059] flex items-center justify-center transition-all hover:bg-[#c5a059] hover:text-black"
+          aria-label="Next review"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="reviews-scroll"
+    class="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory no-scrollbar scroll-smooth"
+    style="scrollbar-width: none; -ms-overflow-style: none; scroll-padding: 0 2rem; padding-left: max(1.5rem, calc((100vw - 80rem) / 2 + 6rem)); padding-right: max(1.5rem, calc((100vw - 80rem) / 2 + 6rem));"
+  >
+    {REVIEWS.map((review) => {
+      const item = (t.items as any)[review.id];
+      if (!item) return null;
+      const reviewImg = typeof review.image === 'object' && review.image !== null ? (review.image as any).url : (review.image || '');
+      return (
+        <div
+          class="flex-shrink-0 w-[300px] sm:w-[340px] snap-center bg-[#111] border border-white/5 rounded overflow-hidden hover:border-[#c5a059]/30 transition-colors flex flex-col group"
+        >
+          <div class="p-6 flex flex-col flex-1">
+            <div class="flex items-center gap-4 mb-4">
+              <div 
+                class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 border border-[#c5a059]/40 bg-black cursor-pointer group/thumb relative"
+                data-lightbox={reviewImg}
+                data-lightbox-alt={item.title}
+                data-youtube={review.youtubeUrl}
+                data-source={review.sourceUrl}
+              >
+                <img
+                  src={reviewImg}
+                  alt={item.title}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover transition-transform group-hover/thumb:scale-110"
+                />
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity">
+                  <svg class="w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-width="2"/></svg>
+                </div>
+              </div>
+              <div class="min-w-0">
+                <h3 class="text-sm font-display font-light text-white leading-tight line-clamp-2">{item.title}</h3>
+                <span class="text-[10px] uppercase tracking-widest text-[#c5a059]/80 font-bold block mt-1">{review.date}</span>
+              </div>
+            </div>
+
+            <div class="relative flex-1 min-h-0 mb-2">
+              <div class="overflow-y-auto h-full pr-3 review-scroll custom-scrollbar max-h-[100px]">
+                <p class="text-gray-400 font-light text-[13px] leading-relaxed">{item.desc}</p>
+                {item.quote && (
+                  <blockquote class="border-l border-[#c5a059]/30 pl-3 mt-3 italic text-gray-300 text-[11px] leading-relaxed">
+                    <p>{item.quote}</p>
+                    <cite class="text-[10px] text-[#c5a059]/60 tracking-wide not-italic block mt-1">— {item.quoteAuthor}</cite>
+                  </blockquote>
+                )}
+                <div class="pb-2"></div>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-[#111] to-transparent pointer-events-none" />
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+              {review.youtubeUrl && item.watch && (
+                <a href={review.youtubeUrl} target="_blank" rel="noopener noreferrer"
+                  class="flex-1 inline-flex items-center justify-center gap-2 px-3 py-1.5 bg-red-600/10 border border-red-600/20 rounded-full text-red-500 text-[10px] font-bold uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all">
+                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                  {item.watch}
+                </a>
+              )}
+              {review.sourceUrl && item.source && (
+                <a href={review.sourceUrl} target="_blank" rel="noopener noreferrer"
+                  class="flex-1 inline-flex items-center justify-center px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-gray-400 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all">
+                  {item.source}
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<script>
+  const scrollContainer = document.getElementById('reviews-scroll');
+  const prevBtn = document.getElementById('reviews-prev');
+  const nextBtn = document.getElementById('reviews-next');
+
+  let isAutoScrolling = true;
+  let autoScrollTimer: any;
+
+  function scroll(direction: 'left' | 'right') {
+    if (!scrollContainer) return;
+    const cardWidth = 340;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
+
+    if (direction === 'left') {
+      if (scrollLeft <= 40) {
+        scrollContainer.scrollTo({ left: scrollWidth, behavior: 'smooth' });
+      } else {
+        scrollContainer.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      }
+    } else {
+      if (scrollLeft >= scrollWidth - clientWidth - 40) {
+        scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        scrollContainer.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      }
+    }
+  }
+
+  prevBtn?.addEventListener('click', () => {
+    isAutoScrolling = false;
+    scroll('left');
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    isAutoScrolling = false;
+    scroll('right');
+  });
+
+  scrollContainer?.addEventListener('mouseenter', () => isAutoScrolling = false);
+  scrollContainer?.addEventListener('mouseleave', () => isAutoScrolling = true);
+
+  function startAutoScroll() {
+    autoScrollTimer = setInterval(() => {
+      if (isAutoScrolling) scroll('right');
+    }, 5000);
+  }
+
+  // Intersection Observer to stop auto-scroll when out of view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (!autoScrollTimer) startAutoScroll();
+      } else {
+        if (autoScrollTimer) {
+          clearInterval(autoScrollTimer);
+          autoScrollTimer = null;
+        }
+      }
+    });
+  }, { threshold: 0.1 });
+
+  if (scrollContainer) observer.observe(scrollContainer);
+
+  // Handle specialized thumbnail clicks (Youtube/Source)
+  document.querySelectorAll('[data-youtube], [data-source]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const yt = el.getAttribute('data-youtube');
+      const src = el.getAttribute('data-source');
+      if (yt) window.open(yt, '_blank', 'noopener,noreferrer');
+      else if (src) window.open(src, '_blank', 'noopener,noreferrer');
+      // Lightbox is handled by the global listener in Lightbox.astro if no yt/src
+    });
+  });
+</script>

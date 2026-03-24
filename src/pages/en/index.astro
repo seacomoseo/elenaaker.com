@@ -1,14 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/Navbar.astro';
 import Hero from '../../components/Hero.astro';
-import Biography from '../../components/Biography';
+import Biography from '../../components/Biography.astro';
 import Services from '../../components/Services.astro';
-import Reviews from '../../components/Reviews';
-import Discography from '../../components/Discography';
+import Reviews from '../../components/Reviews.astro';
+import Discography from '../../components/Discography.astro';
 import Contact from '../../components/Contact.astro';
 import Footer from '../../components/Footer.astro';
-import AudioPlayer from '../../components/AudioPlayer';
+import AudioPlayer from '../../components/AudioPlayer.astro';
+import Lightbox from '../../components/Lightbox.astro';
 import { Language, translations } from '../../translations';
 
 const lang = Language.EN;
@@ -19,17 +20,18 @@ const lang = Language.EN;
   title={translations[lang].seo.index.title}
   description={translations[lang].seo.index.description}
 >
-  <Navbar client:load lang={lang} currentPath={Astro.url.pathname} />
+  <Navbar lang={lang} currentPath={Astro.url.pathname} />
 
   <main>
     <Hero lang={lang} />
-    <Biography client:idle lang={lang} />
+    <Biography lang={lang} />
     <Services lang={lang} />
-    <Reviews client:visible lang={lang} />
-    <Discography client:visible lang={lang} />
+    <Reviews lang={lang} />
+    <Discography lang={lang} />
     <Contact lang={lang} />
   </main>
 
   <Footer lang={lang} />
-  <AudioPlayer client:idle lang={lang} />
+  <AudioPlayer lang={lang} />
+  <Lightbox />
 </Layout>

@@ -1,13 +1,13 @@
 ---
 import { translations, Language } from '../translations';
-import PrivateArea from './PrivateArea';
+import PrivateArea from './PrivateArea.astro';
 const { lang } = Astro.props as { lang: Language };
 const ft = translations[lang].footer;
 ---
 <footer class="pt-16 pb-28 md:pt-20 md:pb-36 bg-black text-center border-t border-white/5">
   <div class="text-[13px] md:text-[15px] font-display font-light uppercase tracking-[0.8em] md:tracking-[1em] text-gray-500 mb-6">ELENA AKER</div>
   <div class="mb-6">
-    <PrivateArea client:idle lang={lang} />
+    <PrivateArea lang={lang} />
   </div>
   <div class="mb-8 flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-8 text-[11px] text-gray-500 font-subtitle uppercase tracking-[0.1em]">
     <a href={lang === Language.EN ? "/en/legal-notice" : "/aviso-legal"} class="hover:text-[#c5a059] transition-colors">{lang === Language.EN ? "Legal Notice" : "Aviso Legal"}</a>
