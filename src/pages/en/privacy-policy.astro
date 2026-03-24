@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer.astro';
+import { Language, translations } from '../../translations';
+
+const lang = Language.EN;
+---
+
+<Layout
+  lang="en"
+  title={translations[lang].seo.privacyPolicy.title}
+  description={translations[lang].seo.privacyPolicy.description}
+>
+  <div class="flex flex-col min-h-screen">
+    <Navbar client:load lang={lang} currentPath={Astro.url.pathname} />
+    
+    <main class="flex-grow max-w-4xl mx-auto px-6 py-24 md:py-32 mt-10">
+      <h1 class="text-4xl md:text-5xl text-gold-gradient font-display font-light mb-12">Privacy Policy</h1>
+      <div class="space-y-6 text-gray-300 font-light leading-relaxed">
+        <p>
+          At <strong>elenaaker.com</strong>, the privacy of our users and clients is fundamental. Through this document, we explain what data we collect, how we use it, and how we protect your personal information when visiting or interacting with our website.
+        </p>
+
+        <h2 class="text-2xl text-white font-subtitle pt-4">Data Collection and Use</h2>
+        <p>
+          The personal data we may collect through the contact form or direct emails are: your name, your email address, and details about your professional event or inquiry. This information is used exclusively to respond to your request, manage musical bookings, and offer you a personalized service.
+        </p>
+        <p>
+          Under no circumstances will we sell, assign, or rent this data to third parties without your express and written consent, unless there is a legal obligation to do so.
+        </p>
+
+        <h2 class="text-2xl text-white font-subtitle pt-4">Private or Professional Area</h2>
+        <p>
+          If you access the Private Area using a previously provided password, we will only process the fact that you have used that area in order to protect the downloadable press and promoter content. No additional data is collected from your device or connection when using this password.
+        </p>
+
+        <h2 class="text-2xl text-white font-subtitle pt-4">Traffic Analytics (Google Analytics 4)</h2>
+        <p>
+          This website uses analytics tools, such as Google Analytics, to understand how visitors interact with the content (which pages are most visited, which country they come from, etc.). This information is collected anonymously through our own or third-party cookies, with the sole objective of improving the experience and technical performance of the website.
+        </p>
+        
+        <h2 class="text-2xl text-white font-subtitle pt-4">Your Rights: Access, Rectification, and Deletion</h2>
+        <p>
+          At any time, you have the right to access, rectify, or cancel the personal information you have provided. To exercise your rights, please send an email to our official contact inbox requesting the deletion or correction of your data.
+        </p>
+      </div>
+    </main>
+
+    <Footer lang={lang} />
+  </div>
+</Layout>

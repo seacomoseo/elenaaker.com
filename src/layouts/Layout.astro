@@ -1,0 +1,109 @@
+---
+import '../index.css';
+import SvgDefs from '../components/SvgDefs.astro';
+import CookieBanner from '../components/CookieBanner';
+import { Language } from '../translations';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: 'es' | 'en';
+  noIndex?: boolean;
+}
+
+const { title, description, lang, noIndex = false } = Astro.props;
+
+const site = 'https://elenaaker.com';
+const rawPath = Astro.url.pathname;
+const currentPath = rawPath.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+
+const pathMap: Record<string, string> = {
+  '/': '/en',
+  '/aviso-legal': '/en/legal-notice',
+  '/politica-privacidad': '/en/privacy-policy',
+  '/politica-cookies': '/en/cookies-policy',
+  '/en': '/',
+  '/en/legal-notice': '/aviso-legal',
+  '/en/privacy-policy': '/politica-privacidad',
+  '/en/cookies-policy': '/politica-cookies',
+};
+
+const otherLangPath = pathMap[currentPath];
+const esPath = lang === 'es' ? currentPath : (otherLangPath || currentPath);
+const enPath = lang === 'en' ? currentPath : (otherLangPath || currentPath);
+
+const finalEsUrl = site + (esPath === '/' ? '' : (esPath.startsWith('/en') ? (pathMap[esPath] || esPath) : esPath));
+const finalEnUrl = site + (enPath === '/' || enPath === '/en' ? '/en' : (enPath.startsWith('/en') ? enPath : '/en' + enPath));
+const canonicalUrl = site + (currentPath === '/' ? '' : currentPath);
+
+const isEn = lang === 'en';
+const langEnum = isEn ? Language.EN : Language.ES;
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  
+  <title>{title}</title>
+  <meta name="description" content={description}>
+
+  {!noIndex && (
+    <>
+      <link rel="canonical" href={canonicalUrl} />
+      <link rel="alternate" hreflang="es" href={finalEsUrl} />
+      <link rel="alternate" hreflang="en" href={finalEnUrl} />
+      <link rel="alternate" hreflang="x-default" href={finalEsUrl} />
+    </>
+  )}
+  {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={canonicalUrl}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content="https://elenaaker.com/src/fotos/7.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content={canonicalUrl}>
+  <meta property="twitter:title" content={title}>
+  <meta property="twitter:description" content={description}>
+  <meta property="twitter:image" content="https://elenaaker.com/src/fotos/7.jpg">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Elena Aker",
+    "alternateName": "María Elena Vázquez Quesada",
+    "url": "https://elenaaker.com",
+    "image": "https://elenaaker.com/src/fotos/7.jpg",
+    "sameAs": [
+      "https://www.youtube.com/@elenaaker"
+    ],
+    "jobTitle": "Harpist",
+    "description": "Professional symphonic and Celtic harpist based in Dubai, specializing in luxury events and corporate galas.",
+    "knowsAbout": ["Classical Music", "Celtic Harp", "Luxury Events", "Musical Performance"]
+  })} />
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="/fonts/giga-sans-300.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="/fonts/montserrat-400.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Preload hero image -->
+  <link rel="preload" href="/src/fotos/7.jpg" as="image">
+</head>
+<body class="bg-[#0a0a0a] min-h-screen text-white selection:bg-[#c5a059] selection:text-black">
+  <SvgDefs />
+  <slot />
+  <CookieBanner client:load lang={langEnum} />
+</body>
+</html>

@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Giga Sans';
+  src: url('/fonts/giga-sans-300.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Giga Sans';
+  src: url('/fonts/giga-sans-400.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Giga Sans';
+  src: url('/fonts/giga-sans-500.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Giga Sans';
+  src: url('/fonts/giga-sans-600.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Giga Sans';
+  src: url('/fonts/giga-sans-700.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Corbel';
+  src: url('/fonts/corbel-400.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Corbel';
+  src: url('/fonts/corbel-700.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Montserrat — self-hosted (latin subset, woff2) */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-300.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #0a0a0a;
+  color: #f5f5f5;
+}
+h1, h2, h3, .font-display {
+  font-family: 'Giga Sans', sans-serif;
+}
+.font-subtitle {
+  font-family: 'Corbel', sans-serif;
+}
+
+
+
+
+/* Smooth scroll and Anchor positioning */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Compensa la altura del NavBar fijo */
+}
+
+/* Selection */
+::selection {
+  background-color: #c5a059;
+  color: #000;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Gold gradient text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #c5a059, #e5c079, #c5a059);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gold line decoration */
+.gold-line::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: #c5a059;
+  margin-top: 1rem;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Parallax for hero */
+@supports (-webkit-touch-callout: none) {
+  /* iOS doesn't support background-attachment: fixed well, fallback */
+  .bg-fixed {
+    background-attachment: scroll;
+  }
+}
+
+/* Bio Text Contrast & Weight */
+.bio-text b, .bio-text strong {
+  color: #e5cc98;
+}
+
+.bio-text i, .bio-text em {
+  font-style: italic;
+  color: #e5cc98;
+}

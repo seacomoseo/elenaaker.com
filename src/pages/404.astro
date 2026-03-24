@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer.astro';
+import { Language, translations } from '../translations';
+
+const lang = Language.ES;
+---
+
+<Layout
+  lang="es"
+  title={translations[lang].seo.fourOhFour.title}
+  description={translations[lang].seo.fourOhFour.description}
+  noIndex={true}
+>
+  <script is:inline>
+    // Si la ruta rota viene del directorio inglés, cambiamos el texto en cliente 
+    // para mantener el código de estado 404 de red nativo sin hacer redirect.
+    if (window.location.pathname.startsWith('/en/')) {
+      document.title = "Page Not Found | Elena Aker";
+      document.documentElement.lang = "en";
+      
+      window.addEventListener('DOMContentLoaded', () => {
+        const titleEl = document.getElementById('title-404');
+        const descEl = document.getElementById('desc-404');
+        const btnTextEl = document.getElementById('btn-text-404');
+        const btnEl = document.getElementById('btn-404');
+        
+        if (titleEl) titleEl.textContent = "Page Not Found";
+        if (descEl) descEl.textContent = "We're sorry, the page you are looking for does not exist or has been moved.";
+        if (btnTextEl) btnTextEl.textContent = "Back to Home";
+        if (btnEl) btnEl.href = "/en";
+      });
+    }
+  </script>
+  <div class="flex flex-col min-h-screen">
+    <Navbar client:load lang={lang} currentPath={Astro.url.pathname} />
+    
+    <main class="flex-grow flex items-center justify-center p-6 text-center mt-20">
+      <div class="max-w-xl mx-auto space-y-8 animate-fade-in-up">
+        <h1 class="text-7xl md:text-9xl text-gold-gradient font-display font-light">404</h1>
+        <h2 id="title-404" class="text-2xl md:text-3xl font-subtitle text-white/90">Página no encontrada</h2>
+        <p id="desc-404" class="text-gray-400 font-light max-w-md mx-auto">
+          Lo sentimos, la página que estás buscando no existe o ha sido movida.
+        </p>
+        <div class="pt-8">
+          <a
+            id="btn-404"
+            href="/"
+            class="inline-flex items-center space-x-2 text-[#c5a059] hover:text-[#e5c079] transition-colors border border-[#c5a059]/30 hover:border-[#c5a059] px-6 py-3 rounded uppercase tracking-[0.2em] text-xs font-subtitle backdrop-blur-sm"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span id="btn-text-404">Volver al inicio</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <Footer lang={lang} />
+  </div>
+</Layout>

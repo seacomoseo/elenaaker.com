@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer.astro';
+import { Language, translations } from '../../translations';
+
+const lang = Language.EN;
+---
+
+<Layout
+  lang="en"
+  title={translations[lang].seo.legalNotice.title}
+  description={translations[lang].seo.legalNotice.description}
+>
+  <div class="flex flex-col min-h-screen">
+    <Navbar client:load lang={lang} currentPath={Astro.url.pathname} />
+    
+    <main class="flex-grow max-w-4xl mx-auto px-6 py-24 md:py-32 mt-10">
+      <h1 class="text-4xl md:text-5xl text-gold-gradient font-display font-light mb-12">Legal Notice</h1>
+      <div class="space-y-6 text-gray-300 font-light leading-relaxed">
+        <p>
+          In compliance with the duty of information established in article 10 of Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), we inform you that this website <strong>elenaaker.com</strong> is owned by María Elena Vázquez Quesada (the "Owner"), who operates under the stage name Elena Aker.
+        </p>
+        
+        <h2 class="text-2xl text-white font-subtitle pt-4">Terms of Use</h2>
+        <p>
+          The use of this website grants the condition of User and implies the full acceptance of each and every one of the provisions included in this Legal Notice. The Owner reserves the right to make without prior notice the modifications they deem appropriate on their website, being able to change, delete, or add both the content and services provided through it and the way in which they are presented or located.
+        </p>
+
+        <h2 class="text-2xl text-white font-subtitle pt-4">Intellectual and Industrial Property</h2>
+        <p>
+          All intellectual property rights, trademarks, images, musical works, audios, videos, and any other element present on this website are the exclusive property of the Owner or third parties who have expressly authorized their use. Any reproduction, distribution, or public communication, totally or partially, requires the prior and written authorization of the Owner. The use of audios, video clips, photographs, or texts for commercial purposes without the proper consent is expressly prohibited.
+        </p>
+        
+        <h2 class="text-2xl text-white font-subtitle pt-4">Liability</h2>
+        <p>
+          This website may include links to external pages over which the Owner assumes no responsibility regarding availability, content, or damages that may arise. The Owner is not responsible for possible security errors or damages that may be caused to the User's computer system as a consequence of the presence of viruses, improper use of the browser, or the use of non-updated versions.
+        </p>
+        
+        <h2 class="text-2xl text-white font-subtitle pt-4">Applicable Law and Jurisdiction</h2>
+        <p>
+          The relationship between the Owner and the User will be governed by current Spanish regulations, and any dispute will be submitted to the competent Courts and Tribunals of Spain.
+        </p>
+      </div>
+    </main>
+
+    <Footer lang={lang} />
+  </div>
+</Layout>

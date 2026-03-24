@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer.astro';
+import { Language, translations } from '../../translations';
+
+const lang = Language.EN;
+---
+
+<Layout
+  lang="en"
+  title={translations[lang].seo.cookiesPolicy.title}
+  description={translations[lang].seo.cookiesPolicy.description}
+>
+  <div class="flex flex-col min-h-screen">
+    <Navbar client:load lang={lang} currentPath={Astro.url.pathname} />
+    
+    <main class="flex-grow max-w-4xl mx-auto px-6 py-24 md:py-32 mt-10">
+      <h1 class="text-4xl md:text-5xl text-gold-gradient font-display font-light mb-12">Cookies Policy</h1>
+      <div class="space-y-6 text-gray-300 font-light leading-relaxed">
+        <p>
+          The website <strong>elenaaker.com</strong> uses cookies to facilitate navigation and observe how users interact with the different sections of the platform, thus ensuring a more agile and personalized service.
+        </p>
+
+        <h2 class="text-2xl text-white font-subtitle pt-4">What Are Cookies?</h2>
+        <p>
+          Cookies are small text files that the website sends to your device's hard drive (computer, smartphone, or tablet) every time you visit. They serve to allow the system to remember certain options, settings, and browsing habits.
+        </p>
+
+        <h2 class="text-2xl text-white font-subtitle pt-4">Types of Cookies Used</h2>
+        <p>
+          <strong>1. Technical or Necessary Cookies:</strong>
+          These are essential for the page to function properly. They include, for example, the basic React scripts so you can change the language, use the mobile menu, or interact with the audio player and the Private Area quickly and smoothly.
+        </p>
+        <p>
+          <strong>2. Analytical Cookies (Google Analytics 4):</strong>
+          We use external services (Google Analytics) to obtain anonymous statistical information: how many people visit the site, what device they use, where they connect from, and which songs or pages attract the most attention. These cookies are saved purely for performance purposes.
+        </p>
+        <p>
+          <strong>3. External Multimedia Service Cookies:</strong>
+          In sections like Discography or Press, we show elements from external platforms (for example, icons linking to YouTube, Spotify, Amazon Music, or lightweight embedded players). These platforms may install their own cookies if you interact with their content.
+        </p>
+
+        <h2 class="text-2xl text-white font-subtitle pt-4">Cookie Management and Deactivation</h2>
+        <p>
+          As a user, you can allow, block, or delete all cookies installed on your computer at any time by configuring your Internet browser options. Please note that if you disable all cookies, some dynamic functions such as the sound player, language switcher, or carousels may not behave efficiently.
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mt-2">
+          <li><strong>Chrome:</strong> Settings &gt; Privacy and security &gt; Cookies and other site data.</li>
+          <li><strong>Firefox:</strong> Options &gt; Privacy & Security &gt; History.</li>
+          <li><strong>Safari:</strong> Preferences &gt; Privacy.</li>
+        </ul>
+
+      </div>
+    </main>
+
+    <Footer lang={lang} />
+  </div>
+</Layout>

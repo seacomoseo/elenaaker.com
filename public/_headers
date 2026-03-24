@@ -1,29 +1,17 @@
 /*
-  Cloudflare Pages _headers file
-  Docs: https://developers.cloudflare.com/pages/configuration/headers/
-*/
+  X-Content-Type-Options: nosniff
 
-# Static assets — immutable cache (hashed filenames from Vite build)
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Fonts — self-hosted, long cache
-/fonts/*
-  Cache-Control: public, max-age=31536000, immutable
-  Access-Control-Allow-Origin: *
+/src/fotos/*
+  Cache-Control: public, max-age=2592000, must-revalidate
 
-# Images and media — long cache
-/src/*
-  Cache-Control: public, max-age=31536000, immutable
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
 
-# PDF files
-/pdf/*
-  Cache-Control: public, max-age=86400
-
-# HTML — always revalidate (short cache so deploys are instant)
-/*
-  Cache-Control: public, max-age=0, must-revalidate
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  X-XSS-Protection: 1; mode=block
-  Referrer-Policy: strict-origin-when-cross-origin
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8

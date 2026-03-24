@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar';
+import Hero from '../../components/Hero.astro';
+import Biography from '../../components/Biography';
+import Services from '../../components/Services.astro';
+import Reviews from '../../components/Reviews';
+import Discography from '../../components/Discography';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+import AudioPlayer from '../../components/AudioPlayer';
+import { Language, translations } from '../../translations';
+
+const lang = Language.EN;
+---
+
+<Layout 
+  lang="en"
+  title={translations[lang].seo.index.title}
+  description={translations[lang].seo.index.description}
+>
+  <Navbar client:load lang={lang} currentPath={Astro.url.pathname} />
+
+  <main>
+    <Hero lang={lang} />
+    <Biography client:idle lang={lang} />
+    <Services lang={lang} />
+    <Reviews client:visible lang={lang} />
+    <Discography client:visible lang={lang} />
+    <Contact lang={lang} />
+  </main>
+
+  <Footer lang={lang} />
+  <AudioPlayer client:idle lang={lang} />
+</Layout>
