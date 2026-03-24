@@ -10,7 +10,7 @@ const { lang } = Astro.props;
 const t = translations[lang].reviews;
 ---
 
-<section id="reviews" class="py-24 md:py-32 bg-[#0a0a0a] overflow-hidden">
+<section id="reviews" class="deferred-section py-24 md:py-32 bg-[#0a0a0a] overflow-hidden">
   <div class="max-w-7xl mx-auto px-6 md:px-24">
     <div class="flex items-end justify-between mb-12">
       <div>
@@ -52,11 +52,10 @@ const t = translations[lang].reviews;
           <div class="p-6 flex flex-col flex-1">
             <div class="flex items-center gap-4 mb-4">
               <button 
+                type="button"
                 class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 border border-[#c5a059]/40 bg-black cursor-pointer group/thumb relative"
                 data-lightbox={reviewImg}
                 data-lightbox-alt={item.title}
-                data-youtube={review.youtubeUrl}
-                data-source={review.sourceUrl}
                 aria-label={`Show review media for ${item.title}`}
               >
                 <img
@@ -118,11 +117,16 @@ const t = translations[lang].reviews;
   const scrollContainer = document.getElementById('reviews-scroll');
   const prevBtn = document.getElementById('reviews-prev');
   const nextBtn = document.getElementById('reviews-next');
+  const reviewCards = [
+    ...(scrollContainer ? Array.from(scrollContainer.querySelectorAll('a, button')) : []),
+    ...(prevBtn ? [prevBtn] : []),
+    ...(nextBtn ? [nextBtn] : []),
+  ];
+  let autoScrollTimer;
+  let canAutoScroll = true;
+  let inViewport = false;
 
-  let isAutoScrolling = true;
-  let autoScrollTimer: any;
-
-  function scroll(direction: 'left' | 'right') {
+  function scroll(direction) {
     if (!scrollContainer) return;
     const cardWidth = 340;
     const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
@@ -143,49 +147,54 @@ const t = translations[lang].reviews;
   }
 
   prevBtn?.addEventListener('click', () => {
-    isAutoScrolling = false;
+    canAutoScroll = false;
     scroll('left');
   });
 
   nextBtn?.addEventListener('click', () => {
-    isAutoScrolling = false;
+    canAutoScroll = false;
     scroll('right');
   });
 
-  scrollContainer?.addEventListener('mouseenter', () => isAutoScrolling = false);
-  scrollContainer?.addEventListener('mouseleave', () => isAutoScrolling = true);
+  const updateAutoScroll = () => {
+    const isHovered = scrollContainer?.matches(':hover') || false;
+    const hasFocus = reviewCards.some((element) => element.matches(':focus, :focus-visible, :focus-within, :hover'));
+    const shouldRun = inViewport && canAutoScroll && !isHovered && !hasFocus;
 
-  function startAutoScroll() {
-    autoScrollTimer = setInterval(() => {
-      if (isAutoScrolling) scroll('right');
-    }, 5000);
-  }
+    if (shouldRun && !autoScrollTimer) {
+      autoScrollTimer = window.setInterval(() => scroll('right'), 5000);
+      return;
+    }
 
-  // Intersection Observer to stop auto-scroll when out of view
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (!autoScrollTimer) startAutoScroll();
-      } else {
-        if (autoScrollTimer) {
-          clearInterval(autoScrollTimer);
-          autoScrollTimer = null;
-        }
-      }
-    });
-  }, { threshold: 0.1 });
+    if (!shouldRun && autoScrollTimer) {
+      window.clearInterval(autoScrollTimer);
+      autoScrollTimer = undefined;
+    }
+  };
 
-  if (scrollContainer) observer.observe(scrollContainer);
+  scrollContainer?.addEventListener('mouseenter', updateAutoScroll);
+  scrollContainer?.addEventListener('mouseleave', () => {
+    canAutoScroll = true;
+    updateAutoScroll();
+  });
 
-  // Handle specialized thumbnail clicks (Youtube/Source)
-  document.querySelectorAll('[data-youtube], [data-source]').forEach(el => {
-    el.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const yt = el.getAttribute('data-youtube');
-      const src = el.getAttribute('data-source');
-      if (yt) window.open(yt, '_blank', 'noopener,noreferrer');
-      else if (src) window.open(src, '_blank', 'noopener,noreferrer');
-      // Lightbox is handled by the global listener in Lightbox.astro if no yt/src
+  reviewCards.forEach((element) => {
+    element.addEventListener('focus', updateAutoScroll, true);
+    element.addEventListener('blur', () => {
+      canAutoScroll = true;
+      updateAutoScroll();
+    }, true);
+    element.addEventListener('mouseenter', updateAutoScroll);
+    element.addEventListener('mouseleave', () => {
+      canAutoScroll = true;
+      updateAutoScroll();
     });
   });
+
+  const observer = new IntersectionObserver(([entry]) => {
+    inViewport = entry.isIntersecting;
+    updateAutoScroll();
+  }, { threshold: 0.35 });
+
+  if (scrollContainer) observer.observe(scrollContainer);
 </script>

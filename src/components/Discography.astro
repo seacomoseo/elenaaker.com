@@ -26,10 +26,10 @@ const PlatformIcons = {
     width="1920" 
     height="1080" 
     id="video-poster"
-    class="w-full h-auto object-cover" 
+    class="relative z-0 w-full h-auto object-cover" 
   />
-  <div class="absolute top-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-b from-[#0a0a0a] to-transparent"></div>
-  <div class="absolute bottom-0 left-0 right-0 h-[15%] pointer-events-none bg-gradient-to-t from-white to-transparent"></div>
+  <div class="absolute top-0 left-0 right-0 z-20 h-[15%] pointer-events-none bg-gradient-to-b from-[#0a0a0a] to-transparent"></div>
+  <div class="absolute bottom-0 left-0 right-0 z-20 h-[15%] pointer-events-none bg-gradient-to-t from-white to-transparent"></div>
 </div>
 
 <section id="albums" class="relative py-24 md:py-32 overflow-hidden bg-white">
@@ -37,12 +37,13 @@ const PlatformIcons = {
     <div class="max-w-7xl mx-auto px-6 md:px-24">
       <div class="flex items-end justify-between mb-16 md:mb-20">
         <div>
-          <span class="text-[11px] font-bold uppercase tracking-[0.4em] text-[#8e7037] mb-4 block">{lang === Language.ES ? 'Catálogo' : 'Catalog'}</span>
+          <span class="text-[11px] uppercase tracking-[0.4em] text-[#8e7037] mb-4 block">{lang === Language.ES ? 'Catálogo' : 'Catalog'}</span>
           <h2 class="text-4xl md:text-5xl font-display font-light text-black">{t.title}</h2>
         </div>
-        <div id="albums-controls" class="flex items-center space-x-3 hidden">
+        <div id="albums-controls" class="items-center space-x-3" style="display: none;">
           <button
             id="albums-prev"
+            type="button"
             class="w-10 h-10 rounded-full border border-[#c5a059] text-[#c5a059] flex items-center justify-center transition-all hover:bg-[#c5a059] hover:text-white"
             aria-label="Previous album"
           >
@@ -50,6 +51,7 @@ const PlatformIcons = {
           </button>
           <button
             id="albums-next"
+            type="button"
             class="w-10 h-10 rounded-full border border-[#c5a059] text-[#c5a059] flex items-center justify-center transition-all hover:bg-[#c5a059] hover:text-white"
             aria-label="Next album"
           >
@@ -100,8 +102,8 @@ const PlatformIcons = {
               </div>
             </div>
           </div>
-          <h3 class="text-xl font-display font-light mb-2 text-black">{album.title}</h3>
-          <p class="text-[11px] text-[#8e7037] font-bold uppercase tracking-widest">{album.artist}</p>
+          <h3 class="text-xl font-display mb-2 text-black">{album.title}</h3>
+          <p class="text-[11px] text-[#8e7037] uppercase tracking-widest">{album.artist}</p>
         </div>
       ))}
     </div>
@@ -111,24 +113,44 @@ const PlatformIcons = {
 <script define:vars={{ videoSrc: ASSETS.videoBg, videoSrcMobile: ASSETS.videoBgMobile, videoPoster: ASSETS.videoPoster }}>
   const container = document.getElementById('video-container');
   const poster = document.getElementById('video-poster');
+  const albumScroll = document.getElementById('albums-scroll');
+  const albumsControls = document.getElementById('albums-controls');
+  const prevBtn = document.getElementById('albums-prev');
+  const nextBtn = document.getElementById('albums-next');
+  const interactiveElements = [
+    ...(albumScroll ? Array.from(albumScroll.querySelectorAll('a, button')) : []),
+    ...(prevBtn ? [prevBtn] : []),
+    ...(nextBtn ? [nextBtn] : []),
+  ];
   let videoInjected = false;
+  let autoScrollTimer;
+  let canAutoScroll = true;
+  let inViewport = false;
+  let isScrollable = false;
 
   function injectVideo() {
-    if (videoInjected) return;
+    if (!container || videoInjected) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (connection?.saveData) return;
     
     const video = document.createElement('video');
     video.id = 'bg-video';
-    video.src = window.innerWidth < 768 ? videoSrcMobile : videoSrc;
+    video.src = window.matchMedia('(max-width: 767px)').matches ? videoSrcMobile : videoSrc;
     video.poster = videoPoster;
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
     video.preload = 'none';
-    video.className = 'w-full h-auto object-cover absolute inset-0';
+    video.className = 'absolute inset-0 z-10 h-full w-full object-cover';
     video.setAttribute('aria-label', 'Background performing video');
     
-    container.insertBefore(video, container.firstChild);
-    poster?.classList.add('opacity-0');
+    container.appendChild(video);
+    if (poster) {
+      poster.style.opacity = '0';
+      poster.style.transition = 'opacity 300ms ease';
+    }
+    requestAnimationFrame(updateScrollableState);
     
     const videoObserver = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) video.play().catch(() => {});
@@ -139,74 +161,133 @@ const PlatformIcons = {
     videoInjected = true;
   }
 
-  window.addEventListener('scroll', injectVideo, { once: true });
-  window.addEventListener('resize', injectVideo);
-  // Use IntersectionObserver to inject video when section is near
   const injectObserver = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) injectVideo();
+    if (entry.isIntersecting) {
+      injectVideo();
+      injectObserver.disconnect();
+    }
   }, { rootMargin: '200px' });
 
   if (container) injectObserver.observe(container);
+  window.addEventListener('scroll', () => {
+    const rect = container?.getBoundingClientRect();
+    if (!rect) return;
+    if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
+      injectVideo();
+      updateScrollableState();
+    }
+  }, { passive: true });
 
-  // Rest of the slider logic
-  const albumScroll = document.getElementById('albums-scroll');
-  const albumsControls = document.getElementById('albums-controls');
-  const prevBtn = document.getElementById('albums-prev');
-  const nextBtn = document.getElementById('albums-next');
-
-  let isAutoScrolling = true;
-  let autoScrollTimer;
-
-  function scroll(direction) {
+  function moveCarousel(direction) {
     if (!albumScroll) return;
-    const cardWidth = 360;
+    const step = Math.max(Math.round(albumScroll.clientWidth * 0.85), 280);
     const { scrollLeft, scrollWidth, clientWidth } = albumScroll;
+    const maxScrollLeft = scrollWidth - clientWidth;
 
     if (direction === 'left') {
       if (scrollLeft <= 40) {
-        albumScroll.scrollTo({ left: scrollWidth, behavior: 'smooth' });
+        albumScroll.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
       } else {
-        albumScroll.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+        albumScroll.scrollBy({ left: -step, behavior: 'smooth' });
       }
     } else {
-      if (scrollLeft >= scrollWidth - clientWidth - 40) {
+      if (scrollLeft >= maxScrollLeft - 40) {
         albumScroll.scrollTo({ left: 0, behavior: 'smooth' });
       } else {
-        albumScroll.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        albumScroll.scrollBy({ left: step, behavior: 'smooth' });
       }
     }
   }
 
-  function checkScrollable() {
-    if (albumScroll && albumScroll.scrollWidth > albumScroll.clientWidth) {
-      albumsControls?.classList.remove('hidden');
-    } else {
-      albumsControls?.classList.add('hidden');
+  function updateScrollableState() {
+    if (!albumScroll || !albumsControls) return;
+    const styles = window.getComputedStyle(albumScroll);
+    const paddingLeft = parseFloat(styles.paddingLeft || '0');
+    const paddingRight = parseFloat(styles.paddingRight || '0');
+    const contentWidth = albumScroll.scrollWidth - paddingLeft - paddingRight;
+
+    isScrollable = contentWidth - albumScroll.clientWidth > 8;
+    albumsControls.style.display = isScrollable ? 'flex' : 'none';
+    prevBtn?.toggleAttribute('disabled', !isScrollable);
+    nextBtn?.toggleAttribute('disabled', !isScrollable);
+    updateAutoScroll();
+  }
+
+  function stopAutoScroll() {
+    if (autoScrollTimer) {
+      window.clearInterval(autoScrollTimer);
+      autoScrollTimer = undefined;
     }
   }
 
-  window.addEventListener('resize', checkScrollable);
-  checkScrollable();
+  function updateAutoScroll() {
+    const isHovered = albumScroll?.matches(':hover') || false;
+    const hasFocus = interactiveElements.some((element) => element.matches(':focus, :focus-visible, :focus-within, :hover'));
+    const shouldRun = isScrollable && inViewport && canAutoScroll && !isHovered && !hasFocus;
 
-  prevBtn?.addEventListener('click', () => { isAutoScrolling = false; scroll('left'); });
-  nextBtn?.addEventListener('click', () => { isAutoScrolling = false; scroll('right'); });
+    if (shouldRun) {
+      if (!autoScrollTimer) {
+        autoScrollTimer = window.setInterval(() => moveCarousel('right'), 5000);
+      }
+      return;
+    }
 
-  albumScroll?.addEventListener('mouseenter', () => isAutoScrolling = false);
-  albumScroll?.addEventListener('mouseleave', () => isAutoScrolling = true);
-
-  function startAutoScroll() {
-    autoScrollTimer = setInterval(() => {
-      if (isAutoScrolling) scroll('right');
-    }, 6000);
+    stopAutoScroll();
   }
+
+  prevBtn?.addEventListener('click', () => {
+    canAutoScroll = false;
+    stopAutoScroll();
+    moveCarousel('left');
+  });
+  nextBtn?.addEventListener('click', () => {
+    canAutoScroll = false;
+    stopAutoScroll();
+    moveCarousel('right');
+  });
+
+  albumScroll?.addEventListener('mouseenter', updateAutoScroll);
+  albumScroll?.addEventListener('mouseleave', () => {
+    canAutoScroll = true;
+    updateAutoScroll();
+  });
+  albumScroll?.addEventListener('scroll', updateScrollableState, { passive: true });
+
+  interactiveElements.forEach((element) => {
+    element.addEventListener('focus', updateAutoScroll, true);
+    element.addEventListener('blur', () => {
+      canAutoScroll = true;
+      updateAutoScroll();
+    }, true);
+    element.addEventListener('mouseenter', updateAutoScroll);
+    element.addEventListener('mouseleave', () => {
+      canAutoScroll = true;
+      updateAutoScroll();
+    });
+  });
 
   const scrollObserver = new IntersectionObserver(([entry]) => {
+    inViewport = entry.isIntersecting;
     if (entry.isIntersecting) {
-        if (!autoScrollTimer) startAutoScroll();
-    } else {
-        if (autoScrollTimer) { clearInterval(autoScrollTimer); autoScrollTimer = null; }
+      requestAnimationFrame(() => {
+        updateScrollableState();
+        requestAnimationFrame(updateScrollableState);
+      });
     }
+    updateAutoScroll();
   }, { threshold: 0.1 });
 
   if (albumScroll) scrollObserver.observe(albumScroll);
+  window.addEventListener('resize', updateScrollableState);
+  window.addEventListener('load', updateScrollableState);
+  window.setTimeout(updateScrollableState, 0);
+  window.setTimeout(updateScrollableState, 250);
+  window.setTimeout(updateScrollableState, 750);
+
+  if ('ResizeObserver' in window && albumScroll) {
+    const resizeObserver = new ResizeObserver(() => updateScrollableState());
+    resizeObserver.observe(albumScroll);
+  }
+
+  updateScrollableState();
 </script>

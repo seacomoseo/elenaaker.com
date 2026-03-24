@@ -4,10 +4,10 @@ const { lang } = Astro.props as { lang: Language };
 const t = translations[lang].services;
 const categoryKeys = ['privateResonance', 'goldenCeremony', 'emeraldSensory', 'heritage', 'hospitality', 'composition'] as const;
 ---
-<section id="services" class="py-24 md:py-32 px-6 md:px-24 bg-white text-black">
+<section id="services" class="deferred-section py-24 md:py-32 px-6 md:px-24 bg-white text-black">
   <div class="max-w-6xl mx-auto">
     <div class="mb-20">
-      <span class="text-[12px] font-extrabold uppercase tracking-[0.4em] text-[#8e7037] mb-4 block">{t.sectionLabel}</span>
+      <span class="text-[12px] uppercase tracking-[0.4em] text-[#8e7037] mb-4 block">{t.sectionLabel}</span>
       <h2 class="text-4xl md:text-5xl font-display font-light mb-6 text-left">{t.title}</h2>
       <p class="text-gray-600 text-base md:text-lg leading-relaxed max-w-2xl font-light text-left">
         {t.intro}
@@ -19,17 +19,17 @@ const categoryKeys = ['privateResonance', 'goldenCeremony', 'emeraldSensory', 'h
         const cat = t.categories[key];
         return (
           <div class="bg-white p-8 md:p-10 hover:bg-gray-50 transition-colors group">
-            <h3 class="text-lg md:text-xl font-display font-light mb-1 flex items-baseline">
+            <h3 class="text-lg md:text-xl font-display mb-1 flex items-baseline">
               <span class="w-6 h-px bg-[#c5a059] mr-3 group-hover:w-8 transition-all duration-300 flex-shrink-0 translate-y-[-.33em]"></span>
               {cat.title}
             </h3>
-            <p class="text-[11px] uppercase tracking-widest text-[#8e7037] font-bold mb-4 font-subtitle pl-9 group-hover:-translate-y-0 group-hover:pl-[44px] transition-all duration-300">
+            <p class="text-[11px] uppercase tracking-widest text-[#8e7037] mb-4 font-subtitle font-light pl-9 group-hover:-translate-y-0 group-hover:pl-[44px] transition-all duration-300">
               {cat.subtitle}
             </p>
             <p class="text-gray-600 font-light leading-relaxed text-sm mb-6">{cat.desc}</p>
             <a 
               href="#contact" 
-              class="text-[11px] font-bold uppercase tracking-widest text-[#8e7037] hover:text-black transition-colors"
+              class="text-[11px] uppercase tracking-widest text-[#8e7037] hover:text-black transition-colors"
             >
               {t.cta}
             </a>

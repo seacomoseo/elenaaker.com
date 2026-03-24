@@ -1,60 +1,162 @@
 ---
 ---
-<div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm hidden flex-col items-center justify-center p-4 cursor-zoom-out animate-fade-in">
-  <button id="lightbox-close" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors p-2" aria-label="Close lightbox">
+<div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center overflow-hidden bg-black/95 p-4 backdrop-blur-sm animate-fade-in">
+  <button id="lightbox-close" class="absolute top-6 right-6 z-30 text-white/50 hover:text-white transition-colors p-2" aria-label="Close lightbox">
     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path d="M6 18L18 6M6 6l12 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   </button>
   
-  <div class="relative max-w-5xl w-full max-h-[90vh] flex items-center justify-center">
-    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[85vh] object-contain shadow-2xl rounded-sm" />
-    <p id="lightbox-caption" class="absolute -bottom-10 left-0 right-0 text-center text-gray-400 text-sm font-light tracking-widest uppercase"></p>
+  <div id="lightbox-stage" class="relative flex h-[calc(100vh-2rem)] w-[calc(100vw-2rem)] items-center justify-center">
+    <img id="lightbox-img" src="" alt="" draggable="false" class="max-w-full max-h-[calc(100vh-5rem)] object-contain shadow-2xl rounded-sm transition-transform duration-300 ease-out cursor-default select-none will-change-transform" />
+    <p id="lightbox-caption" class="absolute bottom-1 left-0 right-0 text-center text-gray-400 text-sm font-light tracking-widest uppercase"></p>
   </div>
 </div>
 
 <script>
   const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lightboxStage = document.getElementById('lightbox-stage');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
   const lightboxCaption = document.getElementById('lightbox-caption');
   const closeBtn = document.getElementById('lightbox-close');
 
-  function openLightbox(url: string, alt: string) {
-    if (!lightbox || !lightboxImg) return;
-    lightboxImg.src = url;
-    if (lightboxCaption) lightboxCaption.textContent = alt;
-    lightbox.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  }
+  if (lightbox && lightboxStage && lightboxImg && document.querySelector('[data-lightbox]')) {
+    let isZoomed = false;
+    let pointerActive = false;
+    let startX = 0;
+    let startY = 0;
+    let translateX = 0;
+    let translateY = 0;
+    let lastTap = 0;
+    const zoomScale = 2.2;
 
-  function closeLightbox() {
-    if (!lightbox) return;
-    lightbox.classList.add('hidden');
-    document.body.style.overflow = '';
-    if (lightboxImg) lightboxImg.src = '';
-  }
+    const updateZoom = () => {
+      lightboxImg.style.transform = isZoomed
+        ? `translate(${translateX}px, ${translateY}px) scale(${zoomScale})`
+        : 'translate(0px, 0px) scale(1)';
+      lightboxImg.style.touchAction = isZoomed ? 'none' : 'manipulation';
+      lightboxImg.classList.toggle('cursor-grab', isZoomed && !pointerActive);
+      lightboxImg.classList.toggle('cursor-grabbing', isZoomed && pointerActive);
+    };
 
-  // Bind to global window for easy access from other components
-  (window as any).openLightbox = openLightbox;
+    const clampPan = () => {
+      const bounds = lightbox.getBoundingClientRect();
+      const scaledWidth = lightboxImg.clientWidth * zoomScale;
+      const scaledHeight = lightboxImg.clientHeight * zoomScale;
+      const maxX = Math.max((scaledWidth - bounds.width) / 2, 0);
+      const maxY = Math.max((scaledHeight - bounds.height) / 2, 0);
+      translateX = Math.min(Math.max(translateX, -maxX), maxX);
+      translateY = Math.min(Math.max(translateY, -maxY), maxY);
+    };
 
-  lightbox?.addEventListener('click', (e) => {
-    if (e.target === lightbox || e.target === closeBtn || (e.target as HTMLElement).closest('button')) {
+    const openLightbox = (url: string, alt: string) => {
+      lightboxImg.src = url;
+      lightboxImg.alt = alt;
+      lightboxCaption && (lightboxCaption.textContent = alt);
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      isZoomed = false;
+      pointerActive = false;
+      translateX = 0;
+      translateY = 0;
+      updateZoom();
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+      isZoomed = false;
+      pointerActive = false;
+      translateX = 0;
+      translateY = 0;
+      updateZoom();
+    };
+
+    closeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       closeLightbox();
-    }
-  });
+    });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
-  });
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
 
-  // Delegate clicks on elements with data-lightbox
-  document.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    const trigger = target.closest('[data-lightbox]');
-    if (trigger) {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    const toggleZoom = () => {
+      isZoomed = !isZoomed;
+      if (!isZoomed) {
+        translateX = 0;
+        translateY = 0;
+      } else {
+        clampPan();
+      }
+      updateZoom();
+    };
+
+    lightboxImg.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleZoom();
+    });
+
+    document.addEventListener('click', (e) => {
+      const trigger = (e.target).closest('[data-lightbox]');
+      if (!trigger) return;
+
+      e.preventDefault();
       const url = trigger.getAttribute('data-lightbox');
       const alt = trigger.getAttribute('data-lightbox-alt') || '';
       if (url) openLightbox(url, alt);
-    }
-  });
+    });
+
+    lightboxImg.addEventListener('pointerdown', (e) => {
+      if (!isZoomed) return;
+      e.preventDefault();
+      pointerActive = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+      lightboxImg.setPointerCapture(e.pointerId);
+      updateZoom();
+    });
+
+    lightboxImg.addEventListener('pointermove', (e) => {
+      if (!isZoomed || !pointerActive) return;
+      e.preventDefault();
+      translateX = e.clientX - startX;
+      translateY = e.clientY - startY;
+      clampPan();
+      updateZoom();
+    });
+
+    const releasePointer = (e) => {
+      if (e && lightboxImg.hasPointerCapture(e.pointerId)) {
+        lightboxImg.releasePointerCapture(e.pointerId);
+      }
+      pointerActive = false;
+      updateZoom();
+    };
+
+    lightboxImg.addEventListener('pointerup', releasePointer);
+    lightboxImg.addEventListener('pointercancel', releasePointer);
+    lightboxImg.addEventListener('pointerleave', releasePointer);
+    lightboxImg.addEventListener('dragstart', (e) => e.preventDefault());
+
+    lightboxImg.addEventListener('touchend', (e) => {
+      const now = Date.now();
+      if (now - lastTap < 300) {
+        e.preventDefault();
+        toggleZoom();
+      }
+      lastTap = now;
+    }, { passive: false });
+  }
 </script>

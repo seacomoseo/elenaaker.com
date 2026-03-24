@@ -52,19 +52,19 @@ const t = {
   const banner = document.getElementById('cookie-banner');
   const acceptBtn = document.getElementById('cookie-accept');
   const declineBtn = document.getElementById('cookie-decline');
+  const consentKey = 'cookieConsent';
+  let analyticsLoaded = false;
 
   function loadGA4() {
-    if (document.getElementById('ga4-script')) return;
+    if (analyticsLoaded || document.getElementById('ga4-script')) return;
 
     const script1 = document.createElement('script');
     script1.id = 'ga4-script';
-    script1.type = 'text/partytown';
     script1.async = true;
     script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-DCQJWMM25F';
     document.head.appendChild(script1);
 
     const script2 = document.createElement('script');
-    script2.type = 'text/partytown';
     script2.innerHTML = `
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -72,35 +72,29 @@ const t = {
       gtag('config', 'G-DCQJWMM25F');
     `;
     document.head.appendChild(script2);
-
-    // Trigger Partytown to scan for new scripts (optional but good for dynamic)
-    window.dispatchEvent(new CustomEvent('ptupdate'));
+    analyticsLoaded = true;
   }
 
   function init() {
-    const consent = localStorage.getItem('cookieConsent');
-    
-    // Default-on logic (as requested)
-    if (consent !== 'declined') {
+    const consent = localStorage.getItem(consentKey);
+
+    if (consent === 'accepted') {
       loadGA4();
     }
 
     if (!consent) {
-      if (banner) {
-        banner.classList.remove('hidden');
-        // Small delay to allow fade-in if we wanted, but hidden class is enough for now
-      }
+      banner?.classList.remove('hidden');
     }
   }
 
   acceptBtn?.addEventListener('click', () => {
-    localStorage.setItem('cookieConsent', 'accepted');
+    localStorage.setItem(consentKey, 'accepted');
     banner?.classList.add('hidden');
     loadGA4();
   });
 
   declineBtn?.addEventListener('click', () => {
-    localStorage.setItem('cookieConsent', 'declined');
+    localStorage.setItem(consentKey, 'declined');
     banner?.classList.add('hidden');
   });
 

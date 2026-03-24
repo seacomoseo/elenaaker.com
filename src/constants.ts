@@ -71,7 +71,7 @@ export const REVIEWS: ReviewItem[] = [
   {
     id: 'harpDream',
     date: '2024',
-    image: 'https://img.youtube.com/vi/xTIItHIVAW8/hqdefault.jpg',
+    image: '/src/prensa/harp-dream-youtube.jpg',
     youtubeUrl: 'https://www.youtube.com/watch?v=xTIItHIVAW8&list=RDxTIItHIVAW8&start_radio=1',
   },
   {
@@ -108,7 +108,7 @@ export const REVIEWS: ReviewItem[] = [
   {
     id: 'nouForcat',
     date: '2016',
-    image: 'https://img.youtube.com/vi/kS_T14VTCE0/hqdefault.jpg',
+    image: '/src/prensa/nou-forcat-youtube.jpg',
     youtubeUrl: 'https://www.youtube.com/watch?v=kS_T14VTCE0',
   },
 ];

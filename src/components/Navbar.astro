@@ -33,7 +33,7 @@ const getOtherLangHref = () => {
 };
 ---
 
-<nav id="main-nav" class="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center transition-all">
+<nav id="main-nav" data-is-home={isHome ? 'true' : 'false'} class="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center transition-all">
   <a href={getHomeHref()} class="text-xl md:text-2xl tracking-[0.3em] text-[#c5a059] uppercase font-display font-light">
     ELENA AKER
   </a>
@@ -82,6 +82,8 @@ const getOtherLangHref = () => {
       id="menu-toggle"
       class="lg:hidden flex flex-col items-center justify-center w-10 h-10 -mr-2 relative"
       aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
     >
       <span class="w-6 h-px bg-white transition-all duration-300 burger-top absolute translate-y-[-6px]" />
       <span class="w-6 h-px bg-white transition-all duration-300 burger-mid absolute" />
@@ -108,18 +110,22 @@ const getOtherLangHref = () => {
 </nav>
 
 <script>
+  const nav = document.getElementById('main-nav');
   const menuToggle = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const burgerTop = document.querySelector('.burger-top');
   const burgerMid = document.querySelector('.burger-mid');
   const burgerBot = document.querySelector('.burger-bot');
-  const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+  const navLinks = Array.from(document.querySelectorAll('.nav-link, .mobile-nav-link'));
+  const isHomePage = nav?.getAttribute('data-is-home') === 'true';
+  const deferredSections = Array.from(document.querySelectorAll('.deferred-section'));
 
   let isMenuOpen = false;
 
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
     mobileMenu?.classList.toggle('hidden', !isMenuOpen);
+    menuToggle?.setAttribute('aria-expanded', String(isMenuOpen));
     
     if (isMenuOpen) {
       burgerTop?.classList.add('rotate-45');
@@ -138,39 +144,77 @@ const getOtherLangHref = () => {
 
   menuToggle?.addEventListener('click', toggleMenu);
 
+  function revealDeferredSections() {
+    deferredSections.forEach((section) => section.classList.add('deferred-section-ready'));
+  }
+
+  function scrollToSection(sectionId: string) {
+    const target = document.getElementById(sectionId);
+    if (!target) return;
+
+    revealDeferredSections();
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  function handleInitialHash() {
+    if (!isHomePage) return;
+    const sectionId = window.location.hash.replace(/^#/, '');
+    if (!sectionId) return;
+
+    requestAnimationFrame(() => {
+      scrollToSection(sectionId);
+    });
+  }
+
   // Close menu on link click
   navLinks.forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (event) => {
+      const href = link.getAttribute('href') || '';
+      if (isHomePage && href.startsWith('#')) {
+        event.preventDefault();
+        const sectionId = href.slice(1);
+        if (sectionId) {
+          history.replaceState(null, '', `#${sectionId}`);
+          scrollToSection(sectionId);
+        }
+      }
+
       if (isMenuOpen) toggleMenu();
     });
   });
 
-  // Scroll Spy
-  const sections = ['home', 'bio', 'services', 'reviews', 'albums', 'contact'];
-  
-  function updateActiveSection() {
-    const scrollPos = window.scrollY + 200;
-    let currentSection = 'home';
+  handleInitialHash();
 
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && scrollPos >= el.offsetTop && scrollPos < el.offsetTop + el.offsetHeight) {
-        currentSection = id;
-      }
+  if (isHomePage && 'IntersectionObserver' in window) {
+    const visibleSections = new Map<string, number>();
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.id;
+        if (entry.isIntersecting) visibleSections.set(id, entry.intersectionRatio);
+        else visibleSections.delete(id);
+      });
+
+      const currentSection =
+        [...visibleSections.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || 'home';
+
+      navLinks.forEach((link) => {
+        const sectionId = link.getAttribute('data-section');
+        const isActive = sectionId === currentSection;
+        link.classList.toggle('text-[#c5a059]', isActive);
+        link.classList.toggle('text-gray-300', !isActive);
+      });
+    }, {
+      rootMargin: '-20% 0px -55% 0px',
+      threshold: [0.15, 0.35, 0.6],
     });
 
-    navLinks.forEach(link => {
-      const sectionId = link.getAttribute('data-section');
-      if (sectionId === currentSection) {
-        link.classList.remove('text-gray-300');
-        link.classList.add('text-[#c5a059]');
-      } else {
-        link.classList.add('text-gray-300');
-        link.classList.remove('text-[#c5a059]');
-      }
+    ['home', 'bio', 'services', 'reviews', 'albums', 'contact'].forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) sectionObserver.observe(section);
     });
   }
-
-  window.addEventListener('scroll', updateActiveSection);
-  updateActiveSection();
 </script>
