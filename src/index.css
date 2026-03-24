@@ -11,7 +11,7 @@
 }
 @font-face {
   font-family: 'Giga Sans';
-  src: url('/fonts/giga-sans-400.woff2') format('woff2');
+  src: url('/fonts/giga-sans-300.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -25,7 +25,7 @@
 }
 @font-face {
   font-family: 'Corbel';
-  src: url('/fonts/corbel-700.woff2') format('woff2');
+  src: url('/fonts/corbel-400.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
