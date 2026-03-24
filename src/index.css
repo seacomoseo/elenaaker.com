@@ -17,27 +17,6 @@
   font-display: swap;
 }
 @font-face {
-  font-family: 'Giga Sans';
-  src: url('/fonts/giga-sans-500.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Giga Sans';
-  src: url('/fonts/giga-sans-600.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Giga Sans';
-  src: url('/fonts/giga-sans-700.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
   font-family: 'Corbel';
   src: url('/fonts/corbel-400.woff2') format('woff2');
   font-weight: 400;
@@ -62,21 +41,14 @@
 }
 @font-face {
   font-family: 'Montserrat';
-  src: url('/fonts/montserrat-400.woff2') format('woff2');
+  src: url('/fonts/montserrat-300.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Montserrat';
-  src: url('/fonts/montserrat-500.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Montserrat';
-  src: url('/fonts/montserrat-600.woff2') format('woff2');
+  src: url('/fonts/montserrat-700.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
