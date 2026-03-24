@@ -45,3 +45,5 @@ It is optimized for **Zero-JS by default**, using pure Astro components and mini
 3. **i18n**: Maintain parity between `Language.ES` and `Language.EN`. ES is primary.
 4. **CSS**: Use Tailwind classes or `src/index.css`. Avoid ad-hoc inline styles.
 5. **Assets**: New photos should go to `public/src/fotos/` and be referenced via `ASSETS`.
+6. **SEO Best Practices**: Ensure a single `<h1>` per page and a logical heading hierarchy (`h1` -> `h2` -> `h3`).
+7. **Image Optimization**: All `<img>` tags MUST have explicit `width` and `height` attributes to prevent layout shifts (CLS) and satisfy automated audits.
