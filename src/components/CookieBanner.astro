@@ -71,6 +71,9 @@ const t = {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+      gtag('consent', 'default', {
+        analytics_storage: 'granted'
+      });
       gtag('config', '${gaMeasurementId}');
     `;
     document.head.appendChild(script2);
@@ -96,7 +99,7 @@ const t = {
   function init() {
     const consent = localStorage.getItem(consentKey);
 
-    if (consent !== 'declined') {
+    if (consent === 'accepted') {
       loadGA4();
     } else {
       disableGA4();

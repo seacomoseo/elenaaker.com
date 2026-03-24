@@ -4,7 +4,7 @@ import sharp from 'sharp'
 
 const RESPONSIVE_VARIANTS = [
   { source: 'dist/src/fotos/1.jpg', widths: [480, 768] },
-  { source: 'dist/src/fotos/2.jpg', widths: [480, 640, 768] },
+  { source: 'dist/src/fotos/2.jpg', widths: [400, 560, 720, 960] },
   { source: 'dist/src/fotos/3.jpg', widths: [480] },
   { source: 'dist/src/fotos/4.jpg', widths: [480, 768] },
   { source: 'dist/src/fotos/5.jpg', widths: [480, 768] },
@@ -52,7 +52,7 @@ async function optimizeImages() {
 
     // Convert to AVIF
     await sharp(imgPath)
-      .avif({ quality: 50, effort: 0 })
+      .avif({ quality: 45, effort: 0 })
       .toFile(avifPath)
 
     // Delete the original JPG from dist so we only serve the heavily optimized AVIF

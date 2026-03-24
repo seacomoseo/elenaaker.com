@@ -12,6 +12,7 @@ export default defineConfig({
   build: {
     format: 'file',
     assets: 'assets',
+    inlineStylesheets: 'always',
   },
   // Serve /en for English, / for Spanish
   i18n: {

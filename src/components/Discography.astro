@@ -168,15 +168,11 @@ const PlatformIcons = {
     }
   }, { rootMargin: '200px' });
 
-  if (container) injectObserver.observe(container);
-  window.addEventListener('scroll', () => {
-    const rect = container?.getBoundingClientRect();
-    if (!rect) return;
-    if (rect.top < window.innerHeight + 200 && rect.bottom > -200) {
-      injectVideo();
-      updateScrollableState();
-    }
-  }, { passive: true });
+  if (container && 'IntersectionObserver' in window) {
+    injectObserver.observe(container);
+  } else {
+    injectVideo();
+  }
 
   function moveCarousel(direction) {
     if (!albumScroll) return;
