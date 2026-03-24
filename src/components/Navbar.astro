@@ -80,12 +80,12 @@ const getOtherLangHref = () => {
 
     <button
       id="menu-toggle"
-      class="lg:hidden flex flex-col space-y-1.5 p-2"
+      class="lg:hidden flex flex-col items-center justify-center w-10 h-10 -mr-2 relative"
       aria-label="Toggle menu"
     >
-      <span class="w-5 h-px bg-white transition-all burger-top" />
-      <span class="w-5 h-px bg-white transition-all burger-mid" />
-      <span class="w-5 h-px bg-white transition-all burger-bot" />
+      <span class="w-6 h-px bg-white transition-all duration-300 burger-top absolute translate-y-[-6px]" />
+      <span class="w-6 h-px bg-white transition-all duration-300 burger-mid absolute" />
+      <span class="w-6 h-px bg-white transition-all duration-300 burger-bot absolute translate-y-[6px]" />
     </button>
   </div>
 
@@ -122,13 +122,17 @@ const getOtherLangHref = () => {
     mobileMenu?.classList.toggle('hidden', !isMenuOpen);
     
     if (isMenuOpen) {
-      burgerTop?.classList.add('rotate-45', 'translate-y-[3.5px]');
+      burgerTop?.classList.add('rotate-45');
+      burgerTop?.classList.remove('translate-y-[-6px]');
       burgerMid?.classList.add('opacity-0');
-      burgerBot?.classList.add('-rotate-45', '-translate-y-[3.5px]');
+      burgerBot?.classList.add('-rotate-45');
+      burgerBot?.classList.remove('translate-y-[6px]');
     } else {
-      burgerTop?.classList.remove('rotate-45', 'translate-y-[3.5px]');
+      burgerTop?.classList.remove('rotate-45');
+      burgerTop?.classList.add('translate-y-[-6px]');
       burgerMid?.classList.remove('opacity-0');
-      burgerBot?.classList.remove('-rotate-45', '-translate-y-[3.5px]');
+      burgerBot?.classList.remove('-rotate-45');
+      burgerBot?.classList.add('translate-y-[6px]');
     }
   }
 
