@@ -52,7 +52,7 @@ async function optimizeImages() {
     
     // Convert to AVIF
     await sharp(imgPath)
-      .avif({ quality: 75, effort: 4 })
+      .avif({ quality: 50, effort: 4 })
       .toFile(avifPath);
     
     // Delete the original JPG from dist so we only serve the heavily optimized AVIF
