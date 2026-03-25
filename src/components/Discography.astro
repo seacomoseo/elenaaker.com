@@ -158,7 +158,7 @@ const PlatformIcons = {
       poster.style.opacity = '0';
       poster.style.transition = 'opacity 300ms ease';
     }
-    requestAnimationFrame(updateScrollableState);
+    scheduleScrollableStateUpdate();
     
     const videoObserver = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) video.play().catch(() => {});
@@ -275,9 +275,6 @@ const PlatformIcons = {
 
   const scrollObserver = new IntersectionObserver(([entry]) => {
     inViewport = entry.isIntersecting;
-    if (entry.isIntersecting) {
-      scheduleScrollableStateUpdate();
-    }
     updateAutoScroll();
   }, { threshold: 0.1 });
 
@@ -291,10 +288,6 @@ const PlatformIcons = {
     updateHorizontalPadding();
     scheduleScrollableStateUpdate();
   });
-  window.setTimeout(scheduleScrollableStateUpdate, 0);
-  window.setTimeout(scheduleScrollableStateUpdate, 250);
-  window.setTimeout(scheduleScrollableStateUpdate, 750);
-
   if ('ResizeObserver' in window && albumScroll) {
     const resizeObserver = new ResizeObserver(() => {
       updateHorizontalPadding();
